@@ -26,7 +26,7 @@ strprefix = str(sys.argv[2])
 print(strprefix + '\n')
 trace = open(source,'r')
 
-dest_tar = str(cur_dir + '/target/tar_list')
+dest_tar = str(cur_dir + '/targets/tar_list')
 dest_src = str(cur_dir + '/source/src_list')
 ot_tar = open(dest_tar,'w')
 ot_src = open(dest_src,'w')
@@ -35,7 +35,7 @@ strcont = '<Contents>'
 strkey = '<Key>'
 strkey_slash = '</Key>'
 strsrc = 'source'
-strtar = 'target'
+strtar = 'targets'
 
 strsrc_arr = []
 strtar_arr = []

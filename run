@@ -1,9 +1,1 @@
-wget https://s3.amazonaws.com/elephant-ramhacks-dev
-python mf.py elephant-ramhacks-dev https://s3.amazonaws.com/elephant-ramhacks-dev
-
-rm -f elephant-ramhacks-dev
-
-cd source; wget -i src_list ; rm -f src_list ; cd ..
-cd target; wget -i tar_list ; rm -f tar_list ; cd ..
-
 ./exe

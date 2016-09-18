@@ -43,15 +43,11 @@ int main( int argc, char** argv )
 		return -1;
 	}
 
-	string dir_source("/home/wangd7/Desktop/flannMatcher/source");
-	string dir_target("/home/wangd7/Desktop/flannMatcher/target");
-	// cout<<dir_source<<endl;
-	// cout<<dir_target<<endl;
+	string dir_source("/home/wangd7/Desktop/flannMatcher/targets");
+	string dir_target("/home/wangd7/Desktop/flannMatcher/source");
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
 	struct dirent *dirp_source, *dirp_target;
-	//cout<<"Input the file directory!"<<endl;
-	//cin>>dir;
 
 	double min_distance;
 	string str_source;
@@ -194,6 +190,7 @@ int main( int argc, char** argv )
 	closedir(dp_target);
 
 	cout<<"{\"env\":\"dev\",\"answers\":{";
+//	string output("{\"env\":\"dev\",\"answers\":{");
 	int size = answer.size()-1;
 	for(map<string, string>::iterator iter = answer.begin(); iter != answer.end(); iter++){
 		cout<<"\"" << iter->first<< "\"" <<":"<<iter->second;
