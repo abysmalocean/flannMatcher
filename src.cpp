@@ -14,6 +14,9 @@
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <map>
+
+#define MAX_DISTANCE 1
 
 #ifndef HAVE_OPENCV_NONFREE
 
@@ -56,6 +59,11 @@ int main( int argc, char** argv )
 	//cout<<"Input the file directory!"<<endl;
 	//cin>>dir;
 
+	double min_distance;
+	string str_source;
+//	map<string, string> answer;
+	vector<string> filename;
+
 	dp_target = opendir(dir_target.c_str());
 
 	if( dp_target == NULL){
@@ -66,21 +74,24 @@ int main( int argc, char** argv )
 
 	while(dirp_target = readdir(dp_target)){
 
+		min_distance = MAX_DISTANCE;
+		str_source.clear();
+
+
 		fp_target = dir_target + "/" + dirp_target->d_name;
 
 		if(strcmp(dirp_target->d_name, ".") == 0 || strcmp(dirp_target->d_name, "..") == 0 ){
 			continue;
 		}else{
-			cout<<endl;
-			cout<<"==============================================="<<endl;
-			cout<<"***** target file is "<<fp_target<<"*****"<<endl;
+
+			cout<<"target file is "<<fp_target<<endl;
 			Mat img_2 = imread( fp_target, CV_LOAD_IMAGE_GRAYSCALE );
 			if( !img_2.data ){
 				printf(" --(!) Error reading images \n");
 				return -1;
 			}
-			dp_source = opendir(dir_source.c_str());
 
+			dp_source = opendir(dir_source.c_str());
 			if( dp_source == NULL){
 				cout<<"Error opening "<<endl;
 				return 0;
@@ -88,13 +99,15 @@ int main( int argc, char** argv )
 
 			while((dirp_source = readdir(dp_source))){
 
-
 				fp_source = dir_source + "/" + dirp_source->d_name;
 				if(strcmp(dirp_source->d_name, ".") == 0 || strcmp(dirp_source->d_name, "..") == 0 ){
 					continue;
 				}
 				else{
-					cout<<"***** source file is "<<fp_source<<"*****"<<endl;
+					if( std::find(filename.begin(), filename.end(), dirp_source->d_name) != filename.end() )
+						continue;
+
+					cout<<"source file is "<<fp_source<<endl;
 					Mat img_1 = imread( fp_source.c_str(), CV_LOAD_IMAGE_GRAYSCALE );
 
 					if( !img_1.data ){
@@ -132,8 +145,8 @@ int main( int argc, char** argv )
 							max_dist = dist;
 					}
 
-					//	printf("-- Max dist : %f \n", max_dist );
-					//	printf("-- Min dist : %f \n", min_dist );
+					// printf("-- Max dist : %f \n", max_dist );
+					// printf("-- Min dist : %f \n", min_dist );
 
 					//-- Draw only "good" matches (i.e. whose distance is less than 2*min_dist,
 					//-- or a small arbitary value ( 0.02 ) in the event that min_dist is very
@@ -158,20 +171,26 @@ int main( int argc, char** argv )
 					imshow( "Good Matches", img_matches );
 
 					double sum = 0;
+					double ave_sum = 0;
 					for( int i = 0; i < (int)good_matches.size(); i++ ){
 						sum += good_matches[i].distance;
 						// printf( "-- Good Match [%d] Keypoint 1: %4d  -- Keypoint 2: %4d  good distance: %.4f\n",
 						//         i, good_matches[i].queryIdx, good_matches[i].trainIdx, good_matches[i].distance );
+					} ave_sum = sum/good_matches.size();
+					if(ave_sum < min_distance)
+					{
+						min_distance = ave_sum;
+						str_source = dirp_source->d_name;
 					}
-					printf("average value is %.4f\n\n", sum/good_matches.size());
-					//	waitKey(0);
 				}
 			}
+			//answer.insert(pair<string, string>(dirp_target->d_name, str_source));
+			cout<<dirp_target->d_name<<":"<<str_source<<endl;
+			filename.push_back(str_source);
 		}
 	}
 	closedir(dp_source);
 	closedir(dp_target);
-
 }
 
 /**
@@ -180,6 +199,5 @@ int main( int argc, char** argv )
 void readme(){
 	cout<<" Usage: ./SURF_FlannMatcher <img1> <img2>"<<endl;
 }
-
 #endif
 
