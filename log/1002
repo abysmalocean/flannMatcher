@@ -1,0 +1,40 @@
+-- Max dist : 0.783162 
+-- Min dist : 0.004129 
+-- Good Match [0] Keypoint 1:   15  -- Keypoint 2:    0  good distance: 0.0059
+-- Good Match [1] Keypoint 1:   38  -- Keypoint 2:    1  good distance: 0.0076
+-- Good Match [2] Keypoint 1:   84  -- Keypoint 2:    3  good distance: 0.0069
+-- Good Match [3] Keypoint 1:  144  -- Keypoint 2:    6  good distance: 0.0059
+-- Good Match [4] Keypoint 1:  154  -- Keypoint 2:    7  good distance: 0.0043
+-- Good Match [5] Keypoint 1:  245  -- Keypoint 2:    9  good distance: 0.0071
+-- Good Match [6] Keypoint 1:  262  -- Keypoint 2:   10  good distance: 0.0042
+-- Good Match [7] Keypoint 1:  280  -- Keypoint 2:   11  good distance: 0.0060
+-- Good Match [8] Keypoint 1:  368  -- Keypoint 2:   13  good distance: 0.0072
+-- Good Match [9] Keypoint 1:  410  -- Keypoint 2:   14  good distance: 0.0042
+-- Good Match [10] Keypoint 1:  441  -- Keypoint 2:   15  good distance: 0.0047
+-- Good Match [11] Keypoint 1:  484  -- Keypoint 2:   16  good distance: 0.0064
+-- Good Match [12] Keypoint 1:  587  -- Keypoint 2:   18  good distance: 0.0099
+-- Good Match [13] Keypoint 1:  673  -- Keypoint 2:   21  good distance: 0.0096
+-- Good Match [14] Keypoint 1:  709  -- Keypoint 2:   20  good distance: 0.0087
+-- Good Match [15] Keypoint 1:  855  -- Keypoint 2:   24  good distance: 0.0077
+-- Good Match [16] Keypoint 1:  875  -- Keypoint 2:   23  good distance: 0.0070
+-- Good Match [17] Keypoint 1:  939  -- Keypoint 2:   26  good distance: 0.0086
+-- Good Match [18] Keypoint 1:  970  -- Keypoint 2:   27  good distance: 0.0071
+-- Good Match [19] Keypoint 1: 1002  -- Keypoint 2:   28  good distance: 0.0074
+-- Good Match [20] Keypoint 1: 1167  -- Keypoint 2:   29  good distance: 0.0095
+-- Good Match [21] Keypoint 1: 1206  -- Keypoint 2:   32  good distance: 0.0074
+-- Good Match [22] Keypoint 1: 1212  -- Keypoint 2:   34  good distance: 0.0102
+-- Good Match [23] Keypoint 1: 1233  -- Keypoint 2:   30  good distance: 0.0090
+-- Good Match [24] Keypoint 1: 1292  -- Keypoint 2:   35  good distance: 0.0142
+-- Good Match [25] Keypoint 1: 1623  -- Keypoint 2:   40  good distance: 0.0075
+-- Good Match [26] Keypoint 1: 1944  -- Keypoint 2:   43  good distance: 0.0094
+-- Good Match [27] Keypoint 1: 2046  -- Keypoint 2:   46  good distance: 0.0110
+-- Good Match [28] Keypoint 1: 2431  -- Keypoint 2:   48  good distance: 0.0060
+-- Good Match [29] Keypoint 1: 2551  -- Keypoint 2:   51  good distance: 0.0041
+-- Good Match [30] Keypoint 1: 2591  -- Keypoint 2:   50  good distance: 0.0112
+-- Good Match [31] Keypoint 1: 2775  -- Keypoint 2:   53  good distance: 0.0113
+-- Good Match [32] Keypoint 1: 2809  -- Keypoint 2:   55  good distance: 0.0101
+-- Good Match [33] Keypoint 1: 2837  -- Keypoint 2:   54  good distance: 0.0075
+-- Good Match [34] Keypoint 1: 2988  -- Keypoint 2:   56  good distance: 0.0179
+-- Good Match [35] Keypoint 1: 3415  -- Keypoint 2:   62  good distance: 0.0127
+-- Good Match [36] Keypoint 1: 3939  -- Keypoint 2:   67  good distance: 0.0066
+average value is 0.0082
