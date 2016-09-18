@@ -51,8 +51,8 @@ int main( int argc, char** argv )
 
 	string dir_source("/home/wangd7/Desktop/flannMatcher/image/source");
 	string dir_target("/home/wangd7/Desktop/flannMatcher/image/target");
-	cout<<dir_source<<endl;
-	cout<<dir_target<<endl;
+	// cout<<dir_source<<endl;
+	// cout<<dir_target<<endl;
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
 	struct dirent *dirp_source, *dirp_target;
@@ -61,7 +61,7 @@ int main( int argc, char** argv )
 
 	double min_distance;
 	string str_source;
-//	map<string, string> answer;
+	map<string, string> answer;
 	vector<string> filename;
 
 	dp_target = opendir(dir_target.c_str());
@@ -71,20 +71,16 @@ int main( int argc, char** argv )
 		return 0;
 	}
 
-
 	while(dirp_target = readdir(dp_target)){
-
 		min_distance = MAX_DISTANCE;
 		str_source.clear();
-
 
 		fp_target = dir_target + "/" + dirp_target->d_name;
 
 		if(strcmp(dirp_target->d_name, ".") == 0 || strcmp(dirp_target->d_name, "..") == 0 ){
 			continue;
 		}else{
-
-			cout<<"target file is "<<fp_target<<endl;
+			//cout<<"target file is "<<fp_target<<endl;
 			Mat img_2 = imread( fp_target, CV_LOAD_IMAGE_GRAYSCALE );
 			if( !img_2.data ){
 				printf(" --(!) Error reading images \n");
@@ -107,7 +103,7 @@ int main( int argc, char** argv )
 					if( std::find(filename.begin(), filename.end(), dirp_source->d_name) != filename.end() )
 						continue;
 
-					cout<<"source file is "<<fp_source<<endl;
+					//cout<<"source file is "<<fp_source<<endl;
 					Mat img_1 = imread( fp_source.c_str(), CV_LOAD_IMAGE_GRAYSCALE );
 
 					if( !img_1.data ){
@@ -184,13 +180,29 @@ int main( int argc, char** argv )
 					}
 				}
 			}
-			//answer.insert(pair<string, string>(dirp_target->d_name, str_source));
-			cout<<dirp_target->d_name<<":"<<str_source<<endl;
+
 			filename.push_back(str_source);
+			string src_name, tar_name;
+			istringstream iss_tar(dirp_target->d_name);
+			getline(iss_tar, tar_name, '.');
+			istringstream iss_src(str_source);
+			getline(iss_src, src_name, '.');
+			answer.insert(pair<string, string>(tar_name, src_name));
+//			cout<<dirp_target->d_name<<":"<<str_source<<endl;
 		}
 	}
 	closedir(dp_source);
 	closedir(dp_target);
+
+	cout<<"{\"env\":\"dev\",\"answers\":{";
+	int size = answer.size()-1;
+	for(map<string, string>::iterator iter = answer.begin(); iter != answer.end(); iter++){
+		cout<<"\"" << iter->first<< "\"" <<":"<<iter->second;
+		if(size != 0)
+			cout<<",";
+		size--;
+	}
+	cout<<"}}"<<endl;
 }
 
 /**
