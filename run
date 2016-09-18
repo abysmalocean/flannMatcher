@@ -1,5 +1,4 @@
 wget https://s3.amazonaws.com/elephant-ramhacks-dev
-
 python mf.py elephant-ramhacks-dev https://s3.amazonaws.com/elephant-ramhacks-dev
 
 rm -f elephant-ramhacks-dev

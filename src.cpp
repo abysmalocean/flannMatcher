@@ -1,9 +1,3 @@
-/**
- * @file SURF_FlannMatcher
- * @brief SURF detector + descriptor + FLANN Matcher
- * @author A. Huaman
- */
-
 #include "opencv2/opencv_modules.hpp"
 #include <stdio.h>
 #include <dirent.h>
