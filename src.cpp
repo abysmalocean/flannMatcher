@@ -65,6 +65,8 @@ int main( int argc, char** argv )
 		return 0;
 	}
 
+	int cnt = 0;
+
 	while(dirp_target = readdir(dp_target)){
 		min_distance = MAX_DISTANCE;
 		str_source.clear();
@@ -74,6 +76,8 @@ int main( int argc, char** argv )
 		if(strcmp(dirp_target->d_name, ".") == 0 || strcmp(dirp_target->d_name, "..") == 0 ){
 			continue;
 		}else{
+			cout<<"Start processing " <<++cnt<<" sub image ......"<<endl;
+
 			//cout<<"target file is "<<fp_target<<endl;
 			Mat img_2 = imread( fp_target, CV_LOAD_IMAGE_GRAYSCALE );
 			if( !img_2.data ){
