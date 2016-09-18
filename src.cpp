@@ -49,8 +49,8 @@ int main( int argc, char** argv )
 		return -1;
 	}
 
-	string dir_source("/home/wangd7/Desktop/flannMatcher/image/source");
-	string dir_target("/home/wangd7/Desktop/flannMatcher/image/target");
+	string dir_source("/home/wangd7/Desktop/flannMatcher/source");
+	string dir_target("/home/wangd7/Desktop/flannMatcher/target");
 	// cout<<dir_source<<endl;
 	// cout<<dir_target<<endl;
 	string fp_source, fp_target;
@@ -129,11 +129,14 @@ int main( int argc, char** argv )
 					std::vector< DMatch > matches;
 					matcher.match( descriptors_1, descriptors_2, matches );
 
+					/*** parallel part beg ***/
+					//matcher.knnMatch(descriptors_1, descriptors_2, );
+					/*** parallel part end ***/
+
 					double max_dist = 0; double min_dist = 100;
 
 					//-- Quick calculation of max and min distances between keypoints
-					for( int i = 0; i < descriptors_1.rows; i++ )
-					{
+					for( int i = 0; i < descriptors_1.rows; i++ ){
 						double dist = matches[i].distance;
 						if( dist < min_dist )
 							min_dist = dist;
@@ -149,22 +152,20 @@ int main( int argc, char** argv )
 					//-- small)
 					//-- PS.- radiusMatch can also be used here.
 					std::vector< DMatch > good_matches;
-
-					for( int i = 0; i < descriptors_1.rows; i++ )
-					{
+					for( int i = 0; i < descriptors_1.rows; i++ ){
 						if( matches[i].distance <= max(2*min_dist, 0.02) ){
 							good_matches.push_back( matches[i]);
 						}
 					}
 
 					//-- Draw only "good" matches
-					Mat img_matches;
-					drawMatches( img_1, keypoints_1, img_2, keypoints_2,
-							good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
-							vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
+					//Mat img_matches;
+					// drawMatches( img_1, keypoints_1, img_2, keypoints_2,
+					//         good_matches, img_matches, Scalar::all(-1), Scalar::all(-1),
+					//         vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS );
 
 					//-- Show detected matches
-					imshow( "Good Matches", img_matches );
+					//imshow( "Good Matches", img_matches );
 
 					double sum = 0;
 					double ave_sum = 0;

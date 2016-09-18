@@ -4,3 +4,5 @@ all: src.cpp
 
 clean:
 	rm -rf exe tags
+	#rm -f source/*
+	#rm -f target/*
