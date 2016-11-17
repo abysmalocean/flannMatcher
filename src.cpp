@@ -1,50 +1,19 @@
-#include "opencv2/opencv_modules.hpp"
-#include <stdio.h>
-#include <dirent.h>
-#include <string.h>
-#include <string>
-#include <iostream>
 
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <map>
-
-#define MAX_DISTANCE 1
-
-#ifndef HAVE_OPENCV_NONFREE
-
-int main(int, char**)
-{
-	printf("The sample requires nonfree module that is not available in your OpenCV distribution.\n");
-	return -1;
-}
-
-#else
-
-# include "opencv2/core/core.hpp"
-# include "opencv2/features2d/features2d.hpp"
-# include "opencv2/highgui/highgui.hpp"
-# include "opencv2/nonfree/features2d.hpp"
-
-using namespace cv;
-using namespace std;
-
-void readme();
-
-/**
- * @function main
- * @brief Main function
- */
 int main( int argc, char** argv )
 {
 	if( argc != 1 ){
 		readme();
 		return -1;
 	}
-
-	string dir_source("/home/wangd7/Desktop/flannMatcher/targets");
-	string dir_target("/home/wangd7/Desktop/flannMatcher/source");
+	//char cwd[1024];
+	//char *getcwd(cwd);
+	//string dirtargetsString = *cwd + "/targets";
+	//string dirSourceString = *cwd + "/source";
+	//cout << dirSourceString;
+	string dir_source("/home/liangxu/Dropbox/Projects/flannMatcher/targets");
+	string dir_target("/home/liangxu/Dropbox/Projects/flannMatcher/source");
+	//string dir_source("/source");
+	//string dir_target("/targets");
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
 	struct dirent *dirp_source, *dirp_target;
@@ -87,8 +56,9 @@ int main( int argc, char** argv )
 				return 0;
 			}
 
+			int cnt2 = 0;
 			while((dirp_source = readdir(dp_source))){
-
+				cout << cnt2++ << endl;
 				fp_source = dir_source + "/" + dirp_source->d_name;
 				if(strcmp(dirp_source->d_name, ".") == 0 || strcmp(dirp_source->d_name, "..") == 0 ){
 					continue;
@@ -106,7 +76,7 @@ int main( int argc, char** argv )
 					}
 
 					//-- Step 1: Detect the keypoints using SURF Detector
-					int minHessian = 400;
+					int minHessian = 1000000;
 					SurfFeatureDetector detector( minHessian );
 					std::vector<KeyPoint> keypoints_1, keypoints_2;
 					detector.detect( img_1, keypoints_1 );
@@ -208,4 +178,3 @@ void readme(){
 	cout<<" Usage: ./SURF_FlannMatcher <img1> <img2>"<<endl;
 }
 #endif
-
