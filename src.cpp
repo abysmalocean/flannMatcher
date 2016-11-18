@@ -21,7 +21,7 @@ void readme();
  * @Auther Liang Xu
  * @ This code based on the Ram Hack challenge 2016
  */
-
+using namespace std;
 
 int main( int argc, char** argv )
 {
