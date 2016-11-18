@@ -41,15 +41,15 @@ int main( int argc, char** argv )
 	else
 			perror("getcwd() error");
 	string str(cwd);
-	string dirtargetsString = *cwd + "/targets";
-	string dirSourceString =  *cwd + "/source";
+	string dir_source = str + "/targets";
+	string dir_target = str + "/source";
 	//fprintf(stdout, "Current dirtargetsString dir: %s\n", dirtargetsString);
 	//fprintf(stdout, "Current dirSourceString dir: %s\n", dirSourceString);
-	cout<<dirtargetsString <<"\n";
-	cout<<sizeof(cwd) <<"\n";
-	cout<<dirSourceString <<"\n";
-	string dir_source("/home/liangxu/Dropbox/Projects/flannMatcher/targets");
-	string dir_target("/home/liangxu/Dropbox/Projects/flannMatcher/source");
+	//cout<<dirtargetsString <<"\n";
+	//cout<<sizeof(cwd) <<"\n";
+	//cout<<dirSourceString <<"\n";
+	//string dir_source("/home/liangxu/Dropbox/Projects/flannMatcher/targets");
+	//string dir_target("/home/liangxu/Dropbox/Projects/flannMatcher/source");
 	//string dir_source("/source");
 	//string dir_target("/targets");
 	string fp_source, fp_target;
