@@ -43,7 +43,7 @@
 #ifndef __OPENCV_NONFREE_HPP__
 #define __OPENCV_NONFREE_HPP__
 
-#include "features2d.hpp"
+#include "nonfree\features2d.hpp"
 
 namespace cv
 {

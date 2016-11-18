@@ -1,4 +1,5 @@
 #include "src.h"
+# include "nonefree/features2d.hpp"
 #ifndef HAVE_OPENCV_NONFRE
 
 int main(int, char**)
