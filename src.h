@@ -1,6 +1,7 @@
 #ifndef _SRC_H
 #define _SRC_H
 
+#include "ProjectHelper.h"
 #include "opencv2/opencv_modules.hpp"
 #include <stdio.h>
 #include <dirent.h>
@@ -18,14 +19,6 @@
 
 #ifndef HAVE_OPENCV_NONFREE
 
-int main(int, char**)
-{
-	printf("The sample requires nonfree module that is not available in your OpenCV distribution.\n");
-	printf("sudo add-apt-repository --yes ppa:xqms/opencv-nonfree \
-					sudo apt-get update \
-					sudo apt-get install libopencv-nonfree-dev")
-	return -1;
-}
 
 #else
 
@@ -37,13 +30,7 @@ int main(int, char**)
 using namespace cv;
 using namespace std;
 
-void readme();
 
-/**
- * @Auther Liang Xu
- * @ This code based on the Ram Hack challenge 2016
- */
 
- #include "currentfoler.h"
-
+#endif
 #endif

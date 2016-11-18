@@ -1,3 +1,28 @@
+#include "src.h"
+
+#ifndef HAVE_OPENCV_NONFREE
+
+int main(int, char**)
+{
+	printf("The sample requires nonfree module that is not available in your OpenCV distribution.\n");
+
+	printf("\n\
+	sudo add-apt-repository --yes ppa:xqms/opencv-nonfree \n\
+	sudo apt-get update \n\
+	sudo apt-get install libopencv-nonfree-dev\n");
+
+	return -1;
+}
+
+#else
+
+void readme();
+
+/**
+ * @Auther Liang Xu
+ * @ This code based on the Ram Hack challenge 2016
+ */
+
 
 int main( int argc, char** argv )
 {
@@ -7,9 +32,22 @@ int main( int argc, char** argv )
 	}
 	//char cwd[1024];
 	//char *getcwd(cwd);
-	//string dirtargetsString = *cwd + "/targets";
+	//
 	//string dirSourceString = *cwd + "/source";
 	//cout << dirSourceString;
+	char cwd[1024];
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+			fprintf(stdout, "Current working dir: %s\n", cwd);
+	else
+			perror("getcwd() error");
+	string str(cwd);
+	string dirtargetsString = *cwd + "/targets";
+	string dirSourceString =  *cwd + "/source";
+	//fprintf(stdout, "Current dirtargetsString dir: %s\n", dirtargetsString);
+	//fprintf(stdout, "Current dirSourceString dir: %s\n", dirSourceString);
+	cout<<dirtargetsString <<"\n";
+	cout<<sizeof(cwd) <<"\n";
+	cout<<dirSourceString <<"\n";
 	string dir_source("/home/liangxu/Dropbox/Projects/flannMatcher/targets");
 	string dir_target("/home/liangxu/Dropbox/Projects/flannMatcher/source");
 	//string dir_source("/source");
