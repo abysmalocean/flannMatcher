@@ -23,6 +23,7 @@ void readme();
  * @ This code based on the Ram Hack challenge 2016
  */
 using namespace std;
+using namespace cv;
 
 int main( int argc, char** argv )
 {
