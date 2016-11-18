@@ -1,6 +1,5 @@
 #include "src.h"
-
-#ifndef HAVE_OPENCV_NONFREE
+#ifndef HAVE_OPENCV_NONFRE
 
 int main(int, char**)
 {

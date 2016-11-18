@@ -16,6 +16,7 @@
 #include <unistd.h>
 //#include <direct.h>
 #define MAX_DISTANCE 1
+#define HAVE_OPENCV_NONFRE 1
 
 #ifndef HAVE_OPENCV_NONFREE
 
