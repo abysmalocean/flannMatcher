@@ -14,6 +14,7 @@
 #include <sys/types.h>
 #include <map>
 #include <unistd.h>
+#include <vector>
 //#include <direct.h>
 #define MAX_DISTANCE 1
 #define HAVE_OPENCV_NONFRE 1
