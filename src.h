@@ -2,7 +2,7 @@
 #define _SRC_H
 
 #include "ProjectHelper.h"
-#include "opencv2/opencv_modules.hpp"
+#include "localOpencv2/opencv2/opencv_modules.hpp"
 #include <stdio.h>
 #include <dirent.h>
 #include <string.h>
@@ -22,10 +22,10 @@
 
 #else
 
-# include "opencv2/core/core.hpp"
-# include "opencv2/features2d/features2d.hpp"
-# include "opencv2/highgui/highgui.hpp"
-# include "opencv2/nonfree/features2d.hpp"
+# include "localOpencv2/opencv2/core/core.hpp"
+# include "localOpencv2/opencv2/features2d/features2d.hpp"
+# include "localOpencv2/opencv2/highgui/highgui.hpp"
+# include "localOpencv2/opencv2/nonfree/features2d.hpp"
 
 using namespace cv;
 using namespace std;
