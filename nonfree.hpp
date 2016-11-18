@@ -11,7 +11,7 @@
 //                For Open Source Computer Vision Library
 //
 // Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
-// Copyright (C) 2009, Willow Garage Inc., all rights reserved.
+// Copyright (C) 2009-2012, Willow Garage Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -40,4 +40,18 @@
 //
 //M*/
 
-#include "opencv2/core/cuda_devptrs.hpp"
+#ifndef __OPENCV_NONFREE_HPP__
+#define __OPENCV_NONFREE_HPP__
+
+#include "features2d.hpp"
+
+namespace cv
+{
+
+CV_EXPORTS_W bool initModule_nonfree();
+
+}
+
+#endif
+
+/* End of file. */
