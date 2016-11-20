@@ -11,7 +11,7 @@
 //                For Open Source Computer Vision Library
 //
 // Copyright (C) 2000-2008, Intel Corporation, all rights reserved.
-// Copyright (C) 2009-2012, Willow Garage Inc., all rights reserved.
+// Copyright (C) 2009, Willow Garage Inc., all rights reserved.
 // Third party copyrights are property of their respective owners.
 //
 // Redistribution and use in source and binary forms, with or without modification,
@@ -40,18 +40,13 @@
 //
 //M*/
 
-#ifndef __OPENCV_NONFREE_HPP__
-#define __OPENCV_NONFREE_HPP__
+#ifndef __OPENCV_OLD_CXCORE_HPP__
+#define __OPENCV_OLD_CXCORE_HPP__
 
-#include "nonfree\features2d.hpp"
+//#if defined(__GNUC__)
+//#warning "This is a deprecated opencv header provided for compatibility. Please include a header from a corresponding opencv module"
+//#endif
 
-namespace cv
-{
-
-CV_EXPORTS_W bool initModule_nonfree();
-
-}
+#include <cxcore.h>
 
 #endif
-
-/* End of file. */
