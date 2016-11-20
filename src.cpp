@@ -208,14 +208,6 @@ int main(int argc, char **argv) {
       answer.insert(pair<string, string>(tar_name, src_name));
 
       //			cout<<dirp_target->d_name<<":"<<str_source<<endl;
-      gettimeofday(&end, NULL);
-      seconds = end.tv_sec - start.tv_sec;
-      useconds = end.tv_usec - start.tv_usec;
-
-      if (useconds < 0) {
-        seconds -= 1;
-      }
-      long total_micro_seconds = (seconds * 1000000) + abs(useconds);
     }
   }
   gettimeofday(&end, NULL);
