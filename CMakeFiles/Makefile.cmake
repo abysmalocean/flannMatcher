@@ -7,27 +7,30 @@ SET(CMAKE_DEPENDS_GENERATOR "Unix Makefiles")
 # The top level Makefile was generated from the following files:
 SET(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
-  "CMakeFiles/2.8.12.2/CMakeCCompiler.cmake"
-  "CMakeFiles/2.8.12.2/CMakeCXXCompiler.cmake"
-  "CMakeFiles/2.8.12.2/CMakeSystem.cmake"
+  "CMakeFiles/2.8.11/CMakeCCompiler.cmake"
+  "CMakeFiles/2.8.11/CMakeCXXCompiler.cmake"
+  "CMakeFiles/2.8.11/CMakeSystem.cmake"
   "CMakeLists.txt"
-  "/usr/share/OpenCV/OpenCVConfig-version.cmake"
-  "/usr/share/OpenCV/OpenCVConfig.cmake"
-  "/usr/share/OpenCV/OpenCVModules-release.cmake"
-  "/usr/share/OpenCV/OpenCVModules.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeCInformation.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeCXXInformation.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeCommonLanguageInclude.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeGenericSystem.cmake"
-  "/usr/share/cmake-2.8/Modules/CMakeSystemSpecificInformation.cmake"
-  "/usr/share/cmake-2.8/Modules/Compiler/GNU-C.cmake"
-  "/usr/share/cmake-2.8/Modules/Compiler/GNU-CXX.cmake"
-  "/usr/share/cmake-2.8/Modules/Compiler/GNU.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU-C.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU-CXX.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux-GNU.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/Linux.cmake"
-  "/usr/share/cmake-2.8/Modules/Platform/UnixPaths.cmake"
+  "/home/xul4/opencv/opencv-2.4.13/OpenCVConfig-version.cmake"
+  "/home/xul4/opencv/opencv-2.4.13/OpenCVConfig.cmake"
+  "/home/xul4/opencv/opencv-2.4.13/OpenCVModules.cmake"
+  "/usr/share/cmake/Modules/CMakeCInformation.cmake"
+  "/usr/share/cmake/Modules/CMakeCXXInformation.cmake"
+  "/usr/share/cmake/Modules/CMakeCommonLanguageInclude.cmake"
+  "/usr/share/cmake/Modules/CMakeGenericSystem.cmake"
+  "/usr/share/cmake/Modules/CMakeParseArguments.cmake"
+  "/usr/share/cmake/Modules/CMakeSystemSpecificInformation.cmake"
+  "/usr/share/cmake/Modules/Compiler/GNU-C.cmake"
+  "/usr/share/cmake/Modules/Compiler/GNU-CXX.cmake"
+  "/usr/share/cmake/Modules/Compiler/GNU.cmake"
+  "/usr/share/cmake/Modules/FindCUDA.cmake"
+  "/usr/share/cmake/Modules/FindPackageHandleStandardArgs.cmake"
+  "/usr/share/cmake/Modules/FindPackageMessage.cmake"
+  "/usr/share/cmake/Modules/Platform/Linux-GNU-C.cmake"
+  "/usr/share/cmake/Modules/Platform/Linux-GNU-CXX.cmake"
+  "/usr/share/cmake/Modules/Platform/Linux-GNU.cmake"
+  "/usr/share/cmake/Modules/Platform/Linux.cmake"
+  "/usr/share/cmake/Modules/Platform/UnixPaths.cmake"
   )
 
 # The corresponding makefile is:
@@ -43,5 +46,5 @@ SET(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 SET(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/DisplayImage.dir/DependInfo.cmake"
+  "CMakeFiles/exe.dir/DependInfo.cmake"
   )

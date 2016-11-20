@@ -38,19 +38,22 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher
+CMAKE_SOURCE_DIR = /home/xul4/flannMatcher
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher
+CMAKE_BINARY_DIR = /home/xul4/flannMatcher
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running interactive CMake command-line interface..."
-	/usr/bin/cmake -i .
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
+	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -69,9 +72,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/CMakeFiles /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/xul4/flannMatcher/CMakeFiles /home/xul4/flannMatcher/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/xul4/flannMatcher/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -99,24 +102,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named DisplayImage
+# Target rules for targets named exe
 
 # Build rule for target.
-DisplayImage: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 DisplayImage
-.PHONY : DisplayImage
+exe: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 exe
+.PHONY : exe
 
 # fast build rule for target.
-DisplayImage/fast:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/build
-.PHONY : DisplayImage/fast
+exe/fast:
+	$(MAKE) -f CMakeFiles/exe.dir/build.make CMakeFiles/exe.dir/build
+.PHONY : exe/fast
 
 src.o: src.cpp.o
 .PHONY : src.o
 
 # target to build an object file
 src.cpp.o:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/src.cpp.o
+	$(MAKE) -f CMakeFiles/exe.dir/build.make CMakeFiles/exe.dir/src.cpp.o
 .PHONY : src.cpp.o
 
 src.i: src.cpp.i
@@ -124,7 +127,7 @@ src.i: src.cpp.i
 
 # target to preprocess a source file
 src.cpp.i:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/src.cpp.i
+	$(MAKE) -f CMakeFiles/exe.dir/build.make CMakeFiles/exe.dir/src.cpp.i
 .PHONY : src.cpp.i
 
 src.s: src.cpp.s
@@ -132,7 +135,7 @@ src.s: src.cpp.s
 
 # target to generate assembly for a file
 src.cpp.s:
-	$(MAKE) -f CMakeFiles/DisplayImage.dir/build.make CMakeFiles/DisplayImage.dir/src.cpp.s
+	$(MAKE) -f CMakeFiles/exe.dir/build.make CMakeFiles/exe.dir/src.cpp.s
 .PHONY : src.cpp.s
 
 # Help Target
@@ -141,8 +144,8 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... DisplayImage"
 	@echo "... edit_cache"
+	@echo "... exe"
 	@echo "... rebuild_cache"
 	@echo "... src.o"
 	@echo "... src.i"

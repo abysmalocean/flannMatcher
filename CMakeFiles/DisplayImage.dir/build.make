@@ -34,11 +34,14 @@ RM = /usr/bin/cmake -E remove -f
 # Escaping for special characters.
 EQUALS = =
 
+# The program to use to edit the cache.
+CMAKE_EDIT_COMMAND = /usr/bin/ccmake
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher
+CMAKE_SOURCE_DIR = /home/xul4/flannMatcher
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher
+CMAKE_BINARY_DIR = /home/xul4/flannMatcher
 
 # Include any dependencies generated for this target.
 include CMakeFiles/DisplayImage.dir/depend.make
@@ -51,17 +54,17 @@ include CMakeFiles/DisplayImage.dir/flags.make
 
 CMakeFiles/DisplayImage.dir/src.cpp.o: CMakeFiles/DisplayImage.dir/flags.make
 CMakeFiles/DisplayImage.dir/src.cpp.o: src.cpp
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/CMakeFiles $(CMAKE_PROGRESS_1)
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/xul4/flannMatcher/CMakeFiles $(CMAKE_PROGRESS_1)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Building CXX object CMakeFiles/DisplayImage.dir/src.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DisplayImage.dir/src.cpp.o -c /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/src.cpp
+	/bin/c++   $(CXX_DEFINES) $(CXX_FLAGS) -o CMakeFiles/DisplayImage.dir/src.cpp.o -c /home/xul4/flannMatcher/src.cpp
 
 CMakeFiles/DisplayImage.dir/src.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/DisplayImage.dir/src.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/src.cpp > CMakeFiles/DisplayImage.dir/src.cpp.i
+	/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -E /home/xul4/flannMatcher/src.cpp > CMakeFiles/DisplayImage.dir/src.cpp.i
 
 CMakeFiles/DisplayImage.dir/src.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/DisplayImage.dir/src.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/src.cpp -o CMakeFiles/DisplayImage.dir/src.cpp.s
+	/bin/c++  $(CXX_DEFINES) $(CXX_FLAGS) -S /home/xul4/flannMatcher/src.cpp -o CMakeFiles/DisplayImage.dir/src.cpp.s
 
 CMakeFiles/DisplayImage.dir/src.cpp.o.requires:
 .PHONY : CMakeFiles/DisplayImage.dir/src.cpp.o.requires
@@ -81,39 +84,44 @@ DisplayImage_EXTERNAL_OBJECTS =
 
 DisplayImage: CMakeFiles/DisplayImage.dir/src.cpp.o
 DisplayImage: CMakeFiles/DisplayImage.dir/build.make
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_videostab.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_ts.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_superres.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_stitching.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_ocl.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_nonfree.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_gpu.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_contrib.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_nonfree.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_ocl.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_gpu.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.8
-DisplayImage: /usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.8
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_videostab.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_video.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_ts.a
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_superres.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_stitching.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_photo.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_ocl.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_objdetect.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_nonfree.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_ml.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_legacy.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_imgproc.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_highgui.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_gpu.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_flann.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_features2d.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_core.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_contrib.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_calib3d.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_nonfree.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_ocl.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_gpu.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_photo.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_objdetect.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_legacy.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_video.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_ml.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_calib3d.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_features2d.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_highgui.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_imgproc.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_flann.so.2.4.13
+DisplayImage: /home/xul4/opencv/opencv-2.4.13/lib/libopencv_core.so.2.4.13
+DisplayImage: /usr/local/cuda/lib64/libcudart.so
+DisplayImage: /usr/local/cuda/lib64/libnppc.so
+DisplayImage: /usr/local/cuda/lib64/libnppi.so
+DisplayImage: /usr/local/cuda/lib64/libnpps.so
+DisplayImage: /usr/local/cuda/lib64/libcufft.so
 DisplayImage: CMakeFiles/DisplayImage.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --red --bold "Linking CXX executable DisplayImage"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/DisplayImage.dir/link.txt --verbose=$(VERBOSE)
@@ -130,6 +138,6 @@ CMakeFiles/DisplayImage.dir/clean:
 .PHONY : CMakeFiles/DisplayImage.dir/clean
 
 CMakeFiles/DisplayImage.dir/depend:
-	cd /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher /home/liangxu/Dropbox/School_Learning/VCU/2016Fall/CS691/flannMatcher/CMakeFiles/DisplayImage.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/xul4/flannMatcher && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/xul4/flannMatcher /home/xul4/flannMatcher /home/xul4/flannMatcher /home/xul4/flannMatcher /home/xul4/flannMatcher/CMakeFiles/DisplayImage.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/DisplayImage.dir/depend
 
