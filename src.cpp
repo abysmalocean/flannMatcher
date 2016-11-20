@@ -9,9 +9,9 @@ int main(int, char **) {
 
         printf(
                 "\n\
-	sudo add-apt-repository --yes ppa:xqms/opencv-nonfree \n\
-	sudo apt-get update \n\
-	sudo apt-get install libopencv-nonfree-dev\n"                                                                                                        );
+	               sudo add-apt-repository --yes ppa:xqms/opencv-nonfree \n\
+	               sudo apt-get update \n\
+	               sudo apt-get install libopencv-nonfree-dev\n"                                                                                                        );
 
         return -1;
 }
@@ -33,16 +33,20 @@ int main(int argc, char **argv) {
                 readme();
                 return -1;
         }
-        original();
 
-        // Assign project folder
+        // original is the code we programed during the RAM Hack
+        //TODO this is rung the original program
+        //original();
+
+        Improved_than_Original();
+
 
 }
 
 /**
-* @function readme
-*/
+ * @function readme
+ */
 void readme() {
-  cout << " Usage: ./SURF_FlannMatcher <img1> <img2>" << endl;
+        cout << " Usage: ./SURF_FlannMatcher <img1> <img2>" << endl;
 }
 #endif  // ifndef HAVE_OPENCV_NONFRE

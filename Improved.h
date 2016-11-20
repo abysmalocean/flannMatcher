@@ -1,7 +1,6 @@
-#ifndef _SRC_H
-#define _SRC_H
+#ifndef _IMPROVED_H
+#define _IMPROVED_H
 
-#include "ProjectHelper.h"
 #include "opencv2/opencv_modules.hpp"
 #include <stdio.h>
 #include <dirent.h>
@@ -18,25 +17,27 @@
 #include <sys/time.h>
 //#include <direct.h>
 #define MAX_DISTANCE 1
-#define HAVE_OPENCV_NONFRE 1
-
-#ifndef HAVE_OPENCV_NONFREE
-
-
-#else
 
 # include "opencv2/core/core.hpp"
 # include "opencv2/features2d/features2d.hpp"
 # include "opencv2/highgui/highgui.hpp"
 # include "opencv2/nonfree/features2d.hpp"
 
-# include "original.h"
-# include "Improved.h"
 
-using namespace cv;
-using namespace std;
+//typedef struct FileData FileData;
+/*
+struct FileData {
+        int vector_at;
+        struct dirent * Path;
+        FileData()
+        {
+          vector_at = 0;
+        }
 
+};
+};
+*/
+int Improved_than_Original();
+# include "Improved.cpp"
 
-
-#endif
 #endif
