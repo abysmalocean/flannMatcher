@@ -1,4 +1,4 @@
-#include "nonefree/features2d.hpp"
+
 #include "src.h"
 #ifndef HAVE_OPENCV_NONFRE
 
@@ -218,8 +218,8 @@ int main(int argc, char **argv) {
     seconds -= 1;
   }
   long total_micro_seconds = (seconds * 1000000) + abs(useconds);
-  printf("This Program is the original program On Optimiazation at all");
-  printf("total micro seconds is --->[%ld]", total_micro_seconds);
+  printf("This Program is the original program On Optimiazation at all\n");
+  printf("total micro seconds is --->[%ld]\n", total_micro_seconds);
 
   closedir(dp_source);
   closedir(dp_target);
