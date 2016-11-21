@@ -113,6 +113,25 @@ int Improved_than_Original()
                 }
         }
 
+        //TODO
+        // -- Step 1: Detect the keypoints using SURF Detector
+        int minHessian = 1000000;
+        SurfFeatureDetector detector(minHessian);
+        std::vector<KeyPoint> keypoints_1, keypoints_2;
+        detector.detect(img_1, keypoints_1);
+        detector.detect(img_2, keypoints_2);
+
+        // -- Step 2: Calculate descriptors (feature vectors)
+        SurfDescriptorExtractor extractor;
+        Mat descriptors_1, descriptors_2;
+        extractor.compute(img_1, keypoints_1, descriptors_1);
+        extractor.compute(img_2, keypoints_2, descriptors_2);
+
+        // -- Step 3: Matching descriptor vectors using FLANN matcher
+        FlannBasedMatcher matcher;
+        std::vector<DMatch> matches;
+        matcher.match(descriptors_1, descriptors_2, matches);
+
 
 
 //****************Record the time***********************************************
