@@ -30,8 +30,10 @@ int Improved_than_Original()
         else
                 perror("getcwd() error");
         string str(cwd);
-        string dir_source = str + "/source";
-        string dir_target = str + "/targets";
+        //string dir_source = str + "/source";
+        //string dir_target = str + "/targets";
+        string dir_source = str + "/source_Small";
+        string dir_target = str + "/target_Small";
         string fp_source, fp_target;
         DIR *dp_source, *dp_target;
         struct dirent *dirp_source, *dirp_target;
@@ -43,6 +45,7 @@ int Improved_than_Original()
 
         map< int, Mat> targetMat;
         map< int, Mat> SourceMat;
+
         vector<FileData*> targetStruct;
         vector<FileData*> sourceStruct;
 
@@ -62,12 +65,18 @@ int Improved_than_Original()
                 return 0;
         }
         // cnt is the the courting variable
-        int cnt = 0;
+        int cnt1 = 0;
         int cnt2 = 0;
 //****************Record the time***********************************************
         struct timeval start, end;
         long seconds, useconds;
         gettimeofday(&start, NULL);
+
+        //TODO
+        // -- Step 1: Detect the keypoints using SURF Detector
+        int minHessian = 1000000;
+        SurfFeatureDetector detector(minHessian);
+        SurfDescriptorExtractor extractor;
 //******************************************************************************
         while (dirp_target = readdir(dp_target)) {
                 str_source.clear();
@@ -78,60 +87,60 @@ int Improved_than_Original()
                     (strcmp(dirp_target->d_name, "..") == 0)) {
                         continue;
                 } else {
-                        cout << "Start processing Target " << ++cnt << " image ......" << endl;
+                        cout << "Start processing Target " << ++cnt2 << " image ......" << endl;
                         Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
                         if (!img_2.data) {
                                 printf(" --(!) Error reading images \n");
                                 return -1;
                         }
-                        targetMat[cnt]            = img_2;
-                        tempFileData -> vector_at = cnt ;
-                        tempFileData -> Path      = dirp_target;
+                        std::vector<KeyPoint> keypoints_2;
+                        Mat descriptors_2;
+                        detector.detect(img_2, keypoints_2);
+                        extractor.compute(img_2, keypoints_2, descriptors_2);
+                        //push to data structure
+                        FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
+                        SourceMat[cnt2]            = descriptors_2;
+                        tempFileData -> vector_at = cnt2 ;
+                        tempFileData -> Path      = dirp_source;
                         tempFileData -> mappointer= &targetMat;
                         targetStruct.push_back(tempFileData);
-                        //cout<<" Size of Target vertor " <<targetStruct.size()<<endl;
+
+                        cout<<" Size of Target vertor " <<targetStruct.size()<<endl;
                 }
         }
         while ((dirp_source = readdir(dp_source))) {
-                FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
                 fp_source = dir_source + "/" + dirp_source->d_name;
                 if ((strcmp(dirp_source->d_name, ".") == 0) ||
                     (strcmp(dirp_source->d_name, "..") == 0)) {
                         continue;
                 } else {
-                        cout << "Start processing Source " << ++cnt2 << " image ......" << endl;
+                        cout << "Start processing Source " << ++cnt1 << " image ......" << endl;
                         Mat img_1 = imread(fp_source.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
                         if (!img_1.data) {
                                 printf(" --(!) Error reading images \n");
                                 return -1;
                         }
-                        SourceMat[cnt]            = img_1;
-                        tempFileData -> vector_at = cnt2 ;
+                        std::vector<KeyPoint> keypoints_1;
+                        Mat descriptors_1;
+                        detector.detect(img_1, keypoints_1);
+                        extractor.compute(img_1, keypoints_1, descriptors_1);
+                        //push to data structure
+                        FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
+                        SourceMat[cnt1]            = descriptors_1;
+                        tempFileData -> vector_at = cnt1 ;
                         tempFileData -> Path      = dirp_source;
                         tempFileData -> mappointer= &SourceMat;
                         sourceStruct.push_back(tempFileData);
                 }
         }
 
-        //TODO
-        // -- Step 1: Detect the keypoints using SURF Detector
-        int minHessian = 1000000;
-        SurfFeatureDetector detector(minHessian);
-        std::vector<KeyPoint> keypoints_1, keypoints_2;
-        detector.detect(img_1, keypoints_1);
-        detector.detect(img_2, keypoints_2);
 
-        // -- Step 2: Calculate descriptors (feature vectors)
-        SurfDescriptorExtractor extractor;
-        Mat descriptors_1, descriptors_2;
-        extractor.compute(img_1, keypoints_1, descriptors_1);
-        extractor.compute(img_2, keypoints_2, descriptors_2);
-
+/*
         // -- Step 3: Matching descriptor vectors using FLANN matcher
         FlannBasedMatcher matcher;
         std::vector<DMatch> matches;
         matcher.match(descriptors_1, descriptors_2, matches);
-
+*/
 
 
 //****************Record the time***********************************************
