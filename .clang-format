@@ -56,5 +56,5 @@ SpacesInContainerLiterals: true
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 Standard: Auto
-TabWidth: 8
+TabWidth: 16
 UseTab: Never

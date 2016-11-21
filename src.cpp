@@ -36,9 +36,9 @@ int main(int argc, char **argv) {
 
         // original is the code we programed during the RAM Hack
         //TODO this is rung the original program
-        //original();
+        original();
 
-        Improved_than_Original();
+        //Improved_than_Original();
 
 
 }

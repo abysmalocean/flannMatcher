@@ -19,7 +19,7 @@
 //#include <direct.h>
 #define MAX_DISTANCE 1
 #define HAVE_OPENCV_NONFRE 1
-
+#define HESSIAN 10
 #ifndef HAVE_OPENCV_NONFREE
 
 
