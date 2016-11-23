@@ -13,7 +13,7 @@ struct FileData {
 typedef struct FileData FileData;
 
 long printFileStruct(FileData* input) {
-	printf("index of map is [%d]", input->vector_at);
+	printf("index of map is [%d] ", input->vector_at);
 	//string str(input->Path->d_name);
 	printf("File path is [%s]\n",input->Path);
 }
@@ -41,7 +41,7 @@ cout << "***********************************************************************
 	{
 		dir_source = str + "/source_Small";
 		dir_target = str + "/target_Small";
-	}}
+	}
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
 	struct dirent *dirp_source, *dirp_target;
@@ -62,7 +62,7 @@ cout << "***********************************************************************
 	//**********************Open the Target
 	// Folder**********************************
 	//************Target**********************
-	dp_target = opendir(dir_target.c_str());
+	 dp_target = opendir(dir_target.c_str());
 	if (dp_target == NULL) {
 		cout << "Error opening " << endl;
 		return 0;
@@ -92,9 +92,8 @@ cout << "***********************************************************************
 
 	//******************************************************************************
 	while (dirp_target = readdir(dp_target)) {
-		str_source.clear();
+		//dirp_target.clear();
 		fp_target = dir_target + "/" + dirp_target->d_name;
-		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 
 		if ((strcmp(dirp_target->d_name, ".") == 0) ||
 		    (strcmp(dirp_target->d_name, "..") == 0)) {
@@ -102,19 +101,25 @@ cout << "***********************************************************************
 		} else {
 			cout << "Start processing Target " << cnt2 << " image ......" << endl;
 			Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
+			// error handle
 			if (!img_2.data) {
 				printf(" --(!) Error reading images \n");
 				return -1;
 			}
+
 			std::vector<KeyPoint> keypoints_2;
 			Mat descriptors_2;
 			detector.detect(img_2, keypoints_2);
 			extractor.compute(img_2, keypoints_2, descriptors_2);
 			// push to data structure
 			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
-			SourceMat[cnt2] = descriptors_2;
+
+			targetMat[cnt2] = descriptors_2;
 			tempFileData->vector_at = cnt2;
 			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
+			//cout << "File Path is " << fp_target << endl;
+			//cout << "Structure Path is " << tempFileData->Path << endl;
+
 			tempFileData->mappointer = &targetMat;
 			targetStruct.push_back(tempFileData);
 			cnt2++;
@@ -140,9 +145,11 @@ cout << "***********************************************************************
 			extractor.compute(img_1, keypoints_1, descriptors_1);
 			// push to data structure
 			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
-			targetMat[cnt1] = descriptors_1;
+			SourceMat[cnt1] = descriptors_1;
 			tempFileData->vector_at = cnt1;
 			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
+			//cout << "File Path is " << fp_source << endl;
+			//cout << "Structure Path is " << tempFileData->Path << endl;
 			tempFileData->mappointer = &SourceMat;
 			sourceStruct.push_back(tempFileData);
 			cnt1++;
@@ -162,6 +169,7 @@ cout << "***********************************************************************
 	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
 		Mat descriptors_1;
 		FileData* SourceTemp = sourceStruct.at(sourceid);
+		//printFileStruct(SourceTemp);
 		cout << "sourced id is" << SourceTemp->vector_at << endl;
 		descriptors_1 =  (SourceTemp->mappointer)->find(SourceTemp->vector_at)->second;
     src_name = SourceTemp -> Path;
@@ -171,6 +179,7 @@ cout << "***********************************************************************
 		{
 			Mat descriptors_2;
 			FileData* targetTemp = targetStruct.at(targetid);
+			//printFileStruct(targetTemp);
 			descriptors_2 =  (targetTemp->mappointer)->find(targetTemp->vector_at)->second;
 			matcher.match(descriptors_1, descriptors_2, matches);
 			// -- Quick calculation of max and min distances between keypoints
