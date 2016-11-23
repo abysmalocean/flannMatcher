@@ -206,7 +206,7 @@ long original()
 	}
 	long total_micro_seconds = (seconds * 1000000) + abs(useconds);
 	printf("This Program is the original program On Optimiazation at all\n");
-	printf("total micro seconds is --->[%ld]\n", total_micro_seconds);
+	printf("total micro seconds is ----->[%ld]\n", total_micro_seconds);
 
 	closedir(dp_source);
 	closedir(dp_target);

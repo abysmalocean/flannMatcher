@@ -33,6 +33,10 @@ int main(int argc, char **argv) {
                 readme();
                 return -1;
         }
+        if(WORKSET) cout<<
+        "********[ Working on the **Big** Data Set ]**********************************"<<endl<<endl;
+        else cout<<
+        "********[ Working on the **Small** Data Set ]**********************************"<< endl<<endl;
 
         // original is the code we programed during the RAM Hack
         //TODO this is rung the original program

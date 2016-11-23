@@ -99,7 +99,8 @@ cout << "***********************************************************************
 		    (strcmp(dirp_target->d_name, "..") == 0)) {
 			continue;
 		} else {
-			cout << "Start processing Target " << cnt2 << " image ......" << endl;
+			cout << "[Improved version] Start processing Target "
+			<< cnt2 << " image ......" << endl;
 			Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
 			// error handle
 			if (!img_2.data) {
@@ -133,7 +134,8 @@ cout << "***********************************************************************
 		    (strcmp(dirp_source->d_name, "..") == 0)) {
 			continue;
 		} else {
-			cout << "Start processing Source " << cnt1 << " image ......" << endl;
+			cout << "[Improved version] Start processing Source "
+			<< cnt1 << " image ......" << endl;
 			Mat img_1 = imread(fp_source.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
 			if (!img_1.data) {
 				printf(" --(!) Error reading images \n");
@@ -167,10 +169,11 @@ cout << "***********************************************************************
 	//std::map<int, Mat>::iterator it;
   string src_name, tar_name;
 	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
+		min_distance = MAX_DISTANCE;
 		Mat descriptors_1;
 		FileData* SourceTemp = sourceStruct.at(sourceid);
 		//printFileStruct(SourceTemp);
-		cout << "sourced id is" << SourceTemp->vector_at << endl;
+		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		descriptors_1 =  (SourceTemp->mappointer)->find(SourceTemp->vector_at)->second;
     src_name = SourceTemp -> Path;
 		//mymap.find('a')->second
@@ -234,7 +237,7 @@ cout << "***********************************************************************
 	printf(
 	        "This Program is the Improved version Improved the Reading and compare "
 	        "part\n");
-	printf("total micro seconds is --->[%ld]\n", total_micro_seconds);
+	printf("total micro seconds is ----->[%ld]\n", total_micro_seconds);
 	//******************************************************************************
 
 	closedir(dp_source);
