@@ -12,14 +12,15 @@ struct FileData {
 };
 typedef struct FileData FileData;
 
-void printFileStruct(FileData* input) {
+long printFileStruct(FileData* input) {
 	printf("index of map is [%d]", input->vector_at);
-  //string str(input->Path->d_name);
-  printf("File path is [%s]\n",input->Path);
+	//string str(input->Path->d_name);
+	printf("File path is [%s]\n",input->Path);
 }
 
 //****************R*************************************************************
-int Improved_than_Original() {
+long Improved_than_Original() {
+cout << "****************************************************************************"<<endl;
 	printf("This is the improved function\n");
 	//**********************Init the Path*****************************************
 	char cwd[1024];
@@ -29,11 +30,11 @@ int Improved_than_Original() {
 		perror("getcwd() error");
 	string str(cwd);
 #ifndef WORKSET
-string dir_source = str + "/source";
-string dir_target = str + "/targets";
+	string dir_source = str + "/source";
+	string dir_target = str + "/targets";
 #else
-string dir_source = str + "/target_Small";
-string dir_target = str + "/source_Small";
+	string dir_source = str + "/source_Small";
+	string dir_target = str + "/target_Small";
 #endif
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
@@ -78,6 +79,7 @@ string dir_target = str + "/source_Small";
 	// TODO
 	// -- Step 1: Detect the keypoints using SURF Detector
 	int minHessian = HESSIAN;
+	printf("Hessian distance is ----> [%d]\n", minHessian);
 	SurfFeatureDetector detector(minHessian);
 	SurfDescriptorExtractor extractor;
 	FlannBasedMatcher matcher;
@@ -106,11 +108,11 @@ string dir_target = str + "/source_Small";
 			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 			SourceMat[cnt2] = descriptors_2;
 			tempFileData->vector_at = cnt2;
-      memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
+			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
 			tempFileData->mappointer = &targetMat;
 			targetStruct.push_back(tempFileData);
-      cnt2++;
-      //printFileStruct(tempFileData);
+			cnt2++;
+			//printFileStruct(tempFileData);
 			//cout << " Size of Target vertor " << targetStruct.size() << endl;
 		}
 	}
@@ -134,38 +136,75 @@ string dir_target = str + "/source_Small";
 			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 			targetMat[cnt1] = descriptors_1;
 			tempFileData->vector_at = cnt1;
-      memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
+			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
 			tempFileData->mappointer = &SourceMat;
 			sourceStruct.push_back(tempFileData);
-      cnt1++;
+			cnt1++;
 		}
 	}
 
 	// Calcuate the Match
-  int targetSize = (int)targetMat.size();
-  int sourcesize = (int)SourceMat.size();
+	int targetSize = (int)targetMat.size();
+	int sourcesize = (int)SourceMat.size();
 	printf("sizeof the target files [%d]\n", targetSize);
 	printf("sizeof the source files [%d]\n", sourcesize);
-  double average[targetSize][sourcesize];
+	double average[targetSize][sourcesize];
 
-
-  for (int sourceid = 0; sourceid < sourcesize; sourceid++){
-    FileData* SourceTemp = sourceStruct.at(sourceid);
-    //printFileStruct(targetTemp);
+	std::vector<DMatch> matches;
+	//std::map<int, Mat>::iterator it;
+  string src_name, tar_name;
+	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
+		Mat descriptors_1;
+		FileData* SourceTemp = sourceStruct.at(sourceid);
+		cout << "sourced id is" << SourceTemp->vector_at << endl;
+		descriptors_1 =  (SourceTemp->mappointer)->find(SourceTemp->vector_at)->second;
+    src_name = SourceTemp -> Path;
+		//mymap.find('a')->second
+		//printFileStruct(targetTemp);
 		for (int targetid = 0; targetid < targetSize; targetid++)
 		{
-      FileData* targetTemp = targetStruct.at(targetid);
-		}
+			Mat descriptors_2;
+			FileData* targetTemp = targetStruct.at(targetid);
+			descriptors_2 =  (targetTemp->mappointer)->find(targetTemp->vector_at)->second;
+			matcher.match(descriptors_1, descriptors_2, matches);
+			// -- Quick calculation of max and min distances between keypoints
+			double max_dist = 0;
+			double min_dist = 100;
+			for (int i = 0; i < descriptors_1.rows; i++) {
+				double dist = matches[i].distance;
+				if (dist < min_dist) min_dist = dist;
+				if (dist > max_dist) max_dist = dist;
+			}
+			//Calculate Good match
+			std::vector<DMatch> good_matches;
+			for (int i = 0; i < descriptors_1.rows; i++) {
+				if (matches[i].distance <= max(2 * min_dist, 0.02)) {
+					good_matches.push_back(matches[i]);
+				}
+			}
+			double sum = 0;
+			double ave_sum = 0;
+			for (int i = 0; i < (int)good_matches.size(); i++) {
+				sum += good_matches[i].distance;
+			}
+			ave_sum = sum / good_matches.size();
+			if(isnan(ave_sum))
+			{
+				printf("Change Hessan Value\n" );
+				return 0;
+			}
+			average[sourceid][targetid] = min_distance;
+      //cout << "best match is " << targetTemp->Path << " and " << src_name << " Avg " << ave_sum << endl;
+      //cout << "ave_sum is " << ave_sum << endl;
+      //cout << "min_distance is" << min_distance << endl;
+			if (ave_sum < min_distance) {
+				min_distance = ave_sum;
+				tar_name = targetTemp->Path;
+
+			}
+		}// end for inner
+      answer.insert(pair<string, string>(tar_name, src_name));
 	}
-	//TODO
-
-
-	/*
-	        // -- Step 3: Matching descriptor vectors using FLANN matcher
-	        FlannBasedMatcher matcher;
-	        std::vector<DMatch> matches;
-	        matcher.match(descriptors_1, descriptors_2, matches);
-	 */
 
 	//****************Record the
 	// time***********************************************
@@ -185,4 +224,14 @@ string dir_target = str + "/source_Small";
 
 	closedir(dp_source);
 	closedir(dp_target);
+	std::cout<<"{\"env\":\"dev\",\"answers\":{";
+	int size = answer.size()-1;
+	for(std::map<std::string, std::string>::iterator iter = answer.begin(); iter != answer.end(); iter++) {
+		std::cout<<"\"" << iter->first<< "\"" <<":"<<iter->second;
+		if(size != 0)
+			std::cout<<",";
+		size--;
+	}
+	std::cout<<"}}"<<std::endl;
+  return total_micro_seconds;
 }

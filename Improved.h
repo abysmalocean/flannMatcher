@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include <vector>
 #include <sys/time.h>
+#include <typeinfo>
 //#include <direct.h>
 
 # include "opencv2/core/core.hpp"
@@ -36,7 +37,7 @@ struct FileData {
 };
 };
 */
-int Improved_than_Original();
+long Improved_than_Original();
 # include "Improved.cpp"
 
 #endif

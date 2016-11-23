@@ -20,7 +20,7 @@
 #define MAX_DISTANCE 1
 #define HAVE_OPENCV_NONFRE 1
 #define HESSIAN 10
-#define WORKSET 0
+#define WORKSET 1
 //#define SOURCE source
 //#define TARGET targets
 #ifndef HAVE_OPENCV_NONFREE

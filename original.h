@@ -23,7 +23,7 @@
 # include "opencv2/nonfree/features2d.hpp"
 # include "original.cpp"
 
-int original();
+long original();
 
 
 #endif

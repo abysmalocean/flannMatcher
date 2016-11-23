@@ -36,9 +36,12 @@ int main(int argc, char **argv) {
 
         // original is the code we programed during the RAM Hack
         //TODO this is rung the original program
-        //original();
-
-        Improved_than_Original();
+        long Original_counter = 0;
+        long Improved_counter = 0;
+        Original_counter = original();
+        Improved_counter = Improved_than_Original();
+        double speedupImproved = double(Original_counter)/double(Improved_counter);
+        cout << "Speed up is [" << speedupImproved <<"]" <<endl;
 
 
 }

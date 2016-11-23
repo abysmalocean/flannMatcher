@@ -1,7 +1,7 @@
 #include "original.h"
 using namespace std;
 using namespace cv;
-int original()
+long original()
 {
 	char cwd[1024];
 
@@ -213,4 +213,5 @@ int original()
 		size--;
 	}
 	std::cout<<"}}"<<std::endl;
+	return total_micro_seconds;
 }
