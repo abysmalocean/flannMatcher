@@ -12,7 +12,8 @@ long original()
 	string str(cwd);
 	string dir_source;
 	string dir_target;
-	if(WORKSET)
+	int workpath = WORKSET;
+	if(workpath)
 	{
 		dir_source = str + "/source";
 		dir_target = str + "/targets";
