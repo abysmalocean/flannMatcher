@@ -10,10 +10,13 @@ int original()
 	else
 		perror("getcwd() error");
 	string str(cwd);
+#ifndef WORKSET
 	string dir_source = str + "/source";
 	string dir_target = str + "/targets";
-	//string dir_source = str + "/target_Small";
-	//string dir_target = str + "/source_Small";
+#else
+	string dir_source = str + "/target_Small";
+	string dir_target = str + "/source_Small";
+#endif
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
 	struct dirent *dirp_source, *dirp_target;
