@@ -80,6 +80,8 @@ string dir_target = str + "/source_Small";
 	int minHessian = HESSIAN;
 	SurfFeatureDetector detector(minHessian);
 	SurfDescriptorExtractor extractor;
+	FlannBasedMatcher matcher;
+
 	//******************************************************************************
 	while (dirp_target = readdir(dp_target)) {
 		str_source.clear();
@@ -138,11 +140,15 @@ string dir_target = str + "/source_Small";
       cnt1++;
 		}
 	}
+
+	// Calcuate the Match
   int targetSize = (int)targetMat.size();
   int sourcesize = (int)SourceMat.size();
 	printf("sizeof the target files [%d]\n", targetSize);
 	printf("sizeof the source files [%d]\n", sourcesize);
   double average[targetSize][sourcesize];
+
+
   for (int sourceid = 0; sourceid < sourcesize; sourceid++){
     FileData* SourceTemp = sourceStruct.at(sourceid);
     //printFileStruct(targetTemp);
@@ -151,6 +157,7 @@ string dir_target = str + "/source_Small";
       FileData* targetTemp = targetStruct.at(targetid);
 		}
 	}
+	//TODO
 
 
 	/*
