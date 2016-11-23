@@ -23,6 +23,8 @@ long original()
 		dir_source = str + "/source_Small";
 		dir_target = str + "/target_Small";
 	}
+	cout << " Source Data Path is " << dir_source << endl;
+	cout << " Target Data Path is " << dir_target << endl;
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
 	struct dirent *dirp_source, *dirp_target;
