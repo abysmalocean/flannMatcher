@@ -10,15 +10,17 @@ long original()
 	else
 		perror("getcwd() error");
 	string str(cwd);
+	string dir_source;
+	string dir_target;
 	if(WORKSET)
 	{
-		string dir_source = str + "/source";
-		string dir_target = str + "/targets";
+		dir_source = str + "/source";
+		dir_target = str + "/targets";
 	}
 	else
 	{
-		string dir_source = str + "/source_Small";
-		string dir_target = str + "/target_Small";
+		dir_source = str + "/source_Small";
+		dir_target = str + "/target_Small";
 	}
 	string fp_source, fp_target;
 	DIR *dp_source, *dp_target;
