@@ -40,8 +40,8 @@ int main(int argc, char **argv) {
 
         // original is the code we programed during the RAM Hack
         //TODO this is rung the original program
-        long Original_counter = 1;
-        long Improved_counter = 1;
+        long Original_counter = 18191416089;
+        long Improved_counter = 1315246048;
         long MultiThraed_counter = 1;
         //Original_counter = original();
         //Improved_counter = Improved_than_Original();
