@@ -6,13 +6,21 @@ string dir_target;
 string fp_source;
 int totalImageNumer = 0;
 int n_threads = THREADS ;
+static pthread_barrier_t barrier;
 
 void* ReadData(void * arg)
 {
+
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct -> thread_ID;
+	int minHessianInTread = HESSIAN;
+	SurfFeatureDetector detector(minHessianInTread);
+	SurfDescriptorExtractor extractor;
 	//cout<< "Thread Id is " << i << endl ;
+	//cout << "Total Number of Image is " << totalImageNumer << endl;
 	string fp_target;
+
+	//target
 	for( i ; i < totalImageNumer ; i = i + n_threads)
 	{
 		struct dirent *tempdrip = (inputStruct->dirp_map)->find(i)->second;
@@ -20,12 +28,16 @@ void* ReadData(void * arg)
 		Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
 		if (!img_2.data) {
 			printf(" --(!) Error reading images \n");
-			pthread_exit(0);
+			pthread_exit(NULL);
+			exit (1);
 		}
 		std::vector<KeyPoint> keypoints_2;
 		Mat descriptors_2;
-		inputStruct->detector->detect(img_2, keypoints_2);
-		inputStruct->extractor->compute(img_2, keypoints_2, descriptors_2);
+		//inputStruct->detector->detect(img_2, keypoints_2);
+		//inputStruct->extractor->compute(img_2, keypoints_2, descriptors_2);
+		detector.detect(img_2, keypoints_2);
+		extractor.compute(img_2, keypoints_2, descriptors_2);
+
 		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 		tempFileData->vector_at = i;
 		memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
@@ -34,19 +46,48 @@ void* ReadData(void * arg)
 		//pthread_mutex_lock(&mute_lock);
 		(*(inputStruct->MatMap))[i] = descriptors_2;
 		(*(inputStruct->FileDataVector)).push_back(tempFileData);
-		cout << "THis is [ " << i << " ] Image,From Thread [ " << *inputStruct -> thread_ID << " ]" << endl;
 		//pthread_mutex_unlock(&mute_lock);
+		cout << "THis is [ " << i << " ] Target Image,From Thread [ " << *inputStruct -> thread_ID << " ]" << endl;
 		//cout << "File path is [ " << fp_target << " ]" << endl ;
 	}
+	//pthread_barrier_wait(&barrier);
+	//cout << "Finish Loading the Target \n";
+
+	//Source
+	i = *inputStruct -> thread_ID;
+		for( i ; i < totalImageNumer ; i = i + n_threads)
+		{
+			struct dirent *tempdrip = (inputStruct->Source_dirp_map)->find(i)->second;
+			fp_target = dir_source + "/" + tempdrip->d_name;
+			Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
+			if (!img_2.data) {
+				printf(" --(!) Error reading images \n");
+				pthread_exit(0);
+			}
+			std::vector<KeyPoint> keypoints_2;
+			Mat descriptors_2;
+			detector.detect(img_2, keypoints_2);
+			extractor.compute(img_2, keypoints_2, descriptors_2);
+			//inputStruct->detector->detect(img_2, keypoints_2);
+			//inputStruct->extractor->compute(img_2, keypoints_2, descriptors_2);
+			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
+			tempFileData->vector_at = i ;
+			memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
+			tempFileData->mappointer = inputStruct->Source_MatMap;
+			// not sure to use the mutex
+			//pthread_mutex_lock(&mute_lock);
+			(*(inputStruct->Source_MatMap))[i] = descriptors_2;
+			(*(inputStruct->Source_FileDataVector)).push_back(tempFileData);
+			//pthread_mutex_unlock(&mute_lock);
+			cout << "THis is [ " << i << " ] Source Image,From Thread [ " << *inputStruct -> thread_ID << " ]" << endl;
+		}
+
 }
 
 long MultiThreadVersion() {
 cout << "****************************************************************************"<<endl;
 	printf("This is the MultiThread Version of this Project \n");
 	//**********************Init the Path*****************************************
-
-
-
 	char cwd[1024];
 
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -89,11 +130,11 @@ cout << "***********************************************************************
 	map<int, Mat> targetMat;
 	map<int, Mat> SourceMat;
 	map<int, struct dirent*> dirp_map;
+	map<int, struct dirent*> Source_dirp_map;
 
 	vector<FileData*> targetStruct;
 	vector<FileData*> sourceStruct;
 
-	min_distance = MAX_DISTANCE;
 
 	//**********************Open the Target Folder********************************
 	//************Target**********************
@@ -119,9 +160,11 @@ cout << "***********************************************************************
 	// TODO
 	// -- Step 1: Detect the keypoints using SURF Detector
 	int minHessian = HESSIAN;
+	cout<<"\n";
 	printf("Hessian distance is ----> [%d]\n", minHessian);
-	SurfFeatureDetector detector(minHessian);
-	SurfDescriptorExtractor extractor;
+	printf("Number of Thread is ----> [%d]\n", n_threads);
+//	SurfFeatureDetector detector(minHessian);
+//	SurfDescriptorExtractor extractor;
 	FlannBasedMatcher matcher;
 
 	//***************************************************************************
@@ -134,48 +177,47 @@ cout << "***********************************************************************
 			totalImageNumer = totalImageNumer + 1;
 		}
 	}
+	int countSource = 0;
+	while ((dirp_source = readdir(dp_source))) {
+		if ((strcmp(dirp_source->d_name, ".") == 0) ||
+		    (strcmp(dirp_source->d_name, "..") == 0)) {
+			continue;
+		} else {
+			Source_dirp_map[countSource]=dirp_source;
+			countSource = countSource + 1;
+		}
+	}
+	int s = pthread_barrier_init(&barrier, NULL, n_threads);
+	if (s != 0)
+	{
+		cout << "Printf have Issue Quit the Program \n";
+		exit(0);
+	}
+/* Create 'numThreads' threads */
 
 	for(int i = 0; i < n_threads; i++)
 	{
 		ThreadStruct* ThreadStruct_pointer    = (ThreadStruct*)malloc(sizeof(ThreadStruct));
 		ThreadStruct_pointer-> thread_ID      = &thread_ID[i];
-		ThreadStruct_pointer-> dirp_map       = &dirp_map;
-		ThreadStruct_pointer-> MatMap         = &targetMat;
-		ThreadStruct_pointer-> FileDataVector = &targetStruct;
-		ThreadStruct_pointer-> detector       = &detector;
-		ThreadStruct_pointer-> extractor      = &extractor;
+		// target
+		ThreadStruct_pointer-> dirp_map              = &dirp_map;
+		ThreadStruct_pointer-> MatMap         			 = &targetMat;
+		ThreadStruct_pointer-> FileDataVector 			 = &targetStruct;
+		// Source
+		// target
+		ThreadStruct_pointer-> Source_dirp_map       = &Source_dirp_map;
+		ThreadStruct_pointer-> Source_MatMap         = &SourceMat;
+		ThreadStruct_pointer-> Source_FileDataVector = &sourceStruct;
+
+		//ThreadStruct_pointer-> detector       = &detector;
+		//ThreadStruct_pointer-> extractor      = &extractor;
+
 		pthread_create(&threads[i],NULL,ReadData,(void *)ThreadStruct_pointer);
 	}
 
-
-	while ((dirp_source = readdir(dp_source))) {
-		fp_source = dir_source + "/" + dirp_source->d_name;
-		if ((strcmp(dirp_source->d_name, ".") == 0) ||
-		    (strcmp(dirp_source->d_name, "..") == 0)) {
-			continue;
-		} else {
-			cout << "[Improved version] Start processing Source "
-			<< cnt1 << " image ......" << endl;
-			Mat img_1 = imread(fp_source.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
-			if (!img_1.data) {
-				printf(" --(!) Error reading images \n");
-				return -1;
-			}
-			std::vector<KeyPoint> keypoints_1;
-			Mat descriptors_1;
-			detector.detect(img_1, keypoints_1);
-			extractor.compute(img_1, keypoints_1, descriptors_1);
-			// push to data structure
-			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
-			SourceMat[cnt1] = descriptors_1;
-			tempFileData->vector_at = cnt1;
-			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
-			//cout << "File Path is " << fp_source << endl;
-			//cout << "Structure Path is " << tempFileData->Path << endl;
-			tempFileData->mappointer = &SourceMat;
-			sourceStruct.push_back(tempFileData);
-			cnt1++;
-		}
+	for(int i = 0; i < n_threads; i++)
+	{
+		pthread_join(threads[i],NULL);
 	}
 
 	// Calcuate the Match

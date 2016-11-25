@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
         long Improved_counter = 1;
         long MultiThraed_counter = 1;
         //Original_counter = original();
-        //Improved_counter = Improved_than_Original();
+        Improved_counter = Improved_than_Original();
         MultiThraed_counter = MultiThreadVersion();
         double speedupImproved = double(Original_counter)/double(Improved_counter);
         cout << "Speed up is [" << speedupImproved <<"]" <<endl;
