@@ -17,6 +17,7 @@ struct ThreadStruct{
 
 //	SurfFeatureDetector* detector;
 //	SurfDescriptorExtractor* extractor;
+	map<string, string>* answer;
 
 };
 typedef struct ThreadStruct ThreadStruct;

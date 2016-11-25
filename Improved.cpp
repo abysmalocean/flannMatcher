@@ -220,7 +220,6 @@ cout << "***********************************************************************
 			if (ave_sum < min_distance) {
 				min_distance = ave_sum;
 				tar_name = targetTemp->Path;
-
 			}
 		}// end for inner
       answer.insert(pair<string, string>(tar_name, src_name));
