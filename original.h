@@ -1,6 +1,6 @@
 #ifndef _ORIGINAL_H
 #define _ORIGINAL_H
-
+/*
 #include "opencv2/opencv_modules.hpp"
 #include <stdio.h>
 #include <dirent.h>
@@ -21,6 +21,8 @@
 # include "opencv2/features2d/features2d.hpp"
 # include "opencv2/highgui/highgui.hpp"
 # include "opencv2/nonfree/features2d.hpp"
+
+*/
 # include "original.cpp"
 
 long original();

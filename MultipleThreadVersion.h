@@ -1,43 +1,25 @@
-#ifndef _IMPROVED_H
-#define _IMPROVED_H
+#ifndef _MULTIPLETHREAD_H
+#define _MULTIPLETHREAD_H
+#include <pthread.h>
 
-#include "opencv2/opencv_modules.hpp"
-#include <stdio.h>
-#include <dirent.h>
-#include <string.h>
-#include <string>
-#include <iostream>
+pthread_mutex_t mute_lock;
 
-#include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <map>
-#include <unistd.h>
-#include <vector>
-#include <sys/time.h>
-#include <typeinfo>
-//#include <direct.h>
+struct ThreadStruct{
+	int* thread_ID;
+	map<int, struct dirent*>* dirp_map;
 
-# include "opencv2/core/core.hpp"
-# include "opencv2/features2d/features2d.hpp"
-# include "opencv2/highgui/highgui.hpp"
-# include "opencv2/nonfree/features2d.hpp"
+	map<int, Mat>* MatMap;
+	vector<FileData*>* FileDataVector;
 
-
-//typedef struct FileData FileData;
-/*
-struct FileData {
-        int vector_at;
-        struct dirent * Path;
-        FileData()
-        {
-          vector_at = 0;
-        }
+	SurfFeatureDetector* detector;
+	SurfDescriptorExtractor* extractor;
 
 };
-};
-*/
-long Improved_than_Original();
-# include "Improved.cpp"
+typedef struct ThreadStruct ThreadStruct;
+
+long MultiThreadVersion();
+
+# include "MultipleThreadVersion.cpp"
+
 
 #endif

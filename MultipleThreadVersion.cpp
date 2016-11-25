@@ -1,36 +1,60 @@
-#include "Improved.h"
-using namespace std;
-using namespace cv;
-
-struct FileData {
-	map<int, Mat>* mappointer;
-	int vector_at;
-	char Path[256];
-	FileData() {
-		vector_at = 0;
-	}
-};
-typedef struct FileData FileData;
-
-long printFileStruct(FileData* input) {
-	printf("index of map is [%d] ", input->vector_at);
-	//string str(input->Path->d_name);
-	printf("File path is [%s]\n",input->Path);
-}
+#include "MultipleThreadVersion.h"
 
 //****************R*************************************************************
-long Improved_than_Original() {
+string dir_source;
+string dir_target;
+string fp_source;
+int totalImageNumer = 0;
+int n_threads = THREADS ;
+
+void* ReadData(void * arg)
+{
+	ThreadStruct* inputStruct = (ThreadStruct *) arg;
+	int i = *inputStruct -> thread_ID;
+	//cout<< "Thread Id is " << i << endl ;
+	string fp_target;
+	for( i ; i < totalImageNumer ; i = i + n_threads)
+	{
+		struct dirent *tempdrip = (inputStruct->dirp_map)->find(i)->second;
+		fp_target = dir_target + "/" + tempdrip->d_name;
+		Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
+		if (!img_2.data) {
+			printf(" --(!) Error reading images \n");
+			pthread_exit(0);
+		}
+		std::vector<KeyPoint> keypoints_2;
+		Mat descriptors_2;
+		inputStruct->detector->detect(img_2, keypoints_2);
+		inputStruct->extractor->compute(img_2, keypoints_2, descriptors_2);
+		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
+		tempFileData->vector_at = i;
+		memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
+		tempFileData->mappointer = inputStruct->MatMap;
+		// not sure to use the mutex
+		//pthread_mutex_lock(&mute_lock);
+		(*(inputStruct->MatMap))[i] = descriptors_2;
+		(*(inputStruct->FileDataVector)).push_back(tempFileData);
+		cout << "THis is [ " << i << " ] Image,From Thread [ " << *inputStruct -> thread_ID << " ]" << endl;
+		//pthread_mutex_unlock(&mute_lock);
+		//cout << "File path is [ " << fp_target << " ]" << endl ;
+	}
+}
+
+long MultiThreadVersion() {
 cout << "****************************************************************************"<<endl;
-	printf("This is the improved function\n");
+	printf("This is the MultiThread Version of this Project \n");
 	//**********************Init the Path*****************************************
+
+
+
 	char cwd[1024];
+
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
 		fprintf(stdout, "Current working dir: %s\n", cwd);
 	else
 		perror("getcwd() error");
 	string str(cwd);
-	string dir_source;
-	string dir_target;
+
 	int workpath = WORKSET;
 	if(workpath)
 	{
@@ -44,9 +68,18 @@ cout << "***********************************************************************
 	}
 	cout << " Source Data Path is " << dir_source << endl;
 	cout << " Target Data Path is " << dir_target << endl;
-	string fp_source, fp_target;
+
 	DIR *dp_source, *dp_target;
+	//struct dirent *dirp_source, *dirp_target;
 	struct dirent *dirp_source, *dirp_target;
+  //***************iR*************************************************************
+	int thread_ID[n_threads];
+	for (int i = 0; i < n_threads; i++) {
+		thread_ID[i]=i;
+	}
+	pthread_t *threads;
+	threads = (pthread_t*)malloc(n_threads * sizeof(pthread_t));
+
 	//*********************End of Init the path***********************************
 	double min_distance;
 	string str_source;
@@ -55,14 +88,14 @@ cout << "***********************************************************************
 
 	map<int, Mat> targetMat;
 	map<int, Mat> SourceMat;
+	map<int, struct dirent*> dirp_map;
 
 	vector<FileData*> targetStruct;
 	vector<FileData*> sourceStruct;
 
 	min_distance = MAX_DISTANCE;
 
-	//**********************Open the Target
-	// Folder**********************************
+	//**********************Open the Target Folder********************************
 	//************Target**********************
 	 dp_target = opendir(dir_target.c_str());
 	if (dp_target == NULL) {
@@ -78,8 +111,7 @@ cout << "***********************************************************************
 	// cnt is the the courting variable
 	int cnt1 = 0;
 	int cnt2 = 0;
-	//****************Record the
-	// time***********************************************
+	//****************Record the time********************************************
 	struct timeval start, end;
 	long seconds, useconds;
 	gettimeofday(&start, NULL);
@@ -92,44 +124,30 @@ cout << "***********************************************************************
 	SurfDescriptorExtractor extractor;
 	FlannBasedMatcher matcher;
 
-	//******************************************************************************
+	//***************************************************************************
 	while (dirp_target = readdir(dp_target)) {
-		//dirp_target.clear();
-		fp_target = dir_target + "/" + dirp_target->d_name;
-
 		if ((strcmp(dirp_target->d_name, ".") == 0) ||
-		    (strcmp(dirp_target->d_name, "..") == 0)) {
+				(strcmp(dirp_target->d_name, "..") == 0)) {
 			continue;
 		} else {
-			cout << "[Improved version] Start processing Target "
-			<< cnt2 << " image ......" << endl;
-			Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
-			// error handle
-			if (!img_2.data) {
-				printf(" --(!) Error reading images \n");
-				return -1;
-			}
-
-			std::vector<KeyPoint> keypoints_2;
-			Mat descriptors_2;
-			detector.detect(img_2, keypoints_2);
-			extractor.compute(img_2, keypoints_2, descriptors_2);
-			// push to data structure
-			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
-
-			targetMat[cnt2] = descriptors_2;
-			tempFileData->vector_at = cnt2;
-			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
-			//cout << "File Path is " << fp_target << endl;
-			//cout << "Structure Path is " << tempFileData->Path << endl;
-
-			tempFileData->mappointer = &targetMat;
-			targetStruct.push_back(tempFileData);
-			cnt2++;
-			//printFileStruct(tempFileData);
-			//cout << " Size of Target vertor " << targetStruct.size() << endl;
+			dirp_map[totalImageNumer]=dirp_target;
+			totalImageNumer = totalImageNumer + 1;
 		}
 	}
+
+	for(int i = 0; i < n_threads; i++)
+	{
+		ThreadStruct* ThreadStruct_pointer    = (ThreadStruct*)malloc(sizeof(ThreadStruct));
+		ThreadStruct_pointer-> thread_ID      = &thread_ID[i];
+		ThreadStruct_pointer-> dirp_map       = &dirp_map;
+		ThreadStruct_pointer-> MatMap         = &targetMat;
+		ThreadStruct_pointer-> FileDataVector = &targetStruct;
+		ThreadStruct_pointer-> detector       = &detector;
+		ThreadStruct_pointer-> extractor      = &extractor;
+		pthread_create(&threads[i],NULL,ReadData,(void *)ThreadStruct_pointer);
+	}
+
+
 	while ((dirp_source = readdir(dp_source))) {
 		fp_source = dir_source + "/" + dirp_source->d_name;
 		if ((strcmp(dirp_source->d_name, ".") == 0) ||
