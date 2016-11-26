@@ -39,8 +39,11 @@ cout << "***********************************************************************
 	map<string, string> answer;
 	vector<string> filename;
 
-	map<int,  vector<float> > targetMat;
-	map<int,  vector<float> > SourceMat;
+	map<int,  vector<float> > targetMatGPU;
+	map<int,  vector<float> > SourceMatGPU;
+
+	map<int,  Mat > targetMat;
+	map<int,  Mat > SourceMat;
 
 	vector<FileDataGPU*> targetStruct;
 	vector<FileDataGPU*> sourceStruct;
@@ -97,15 +100,18 @@ cout << "***********************************************************************
 			//init the keypoints and descriptors2
 			std::vector<KeyPoint> keypoints_2;
 			vector<float> descriptors2;
+			Mat descriptorsMat2;
 
 			surf.downloadKeypoints(keypoints2GPU, keypoints_2);
+			descriptors2GPU.download(descriptorsMat2);
 			surf.downloadDescriptors(descriptors2GPU, descriptors2);
 
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
-			targetMat[cnt2] = descriptors2;
+			targetMat[cnt2]    = descriptorsMat2;
+			targetMatGPU[cnt2] = descriptors2;
 			tempFileData->vector_at = cnt2;
 			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
-			tempFileData->mappointer = &targetMat;
+			tempFileData->mappointer = &targetMatGPU;
 			targetStruct.push_back(tempFileData);
 			cnt2++;
 		}
@@ -136,10 +142,10 @@ cout << "***********************************************************************
 			surf.downloadDescriptors(descriptors1GPU, descriptors1);
 
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
-			SourceMat[cnt1] = descriptors1;
+			SourceMatGPU[cnt1] = descriptors1;
 			tempFileData->vector_at = cnt1;
 			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
-			tempFileData->mappointer = &SourceMat;
+			tempFileData->mappointer = &SourceMatGPU;
 			sourceStruct.push_back(tempFileData);
 			cnt1++;
 		}
@@ -147,7 +153,7 @@ cout << "***********************************************************************
 	cout << "Finish Importing the Source Image \n";
 	//TODO The following is to Use Match Function
 
-	
+
 	//****************Record the
 	// time***********************************************
 	gettimeofday(&end, NULL);
