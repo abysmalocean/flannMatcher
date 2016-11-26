@@ -78,7 +78,7 @@ cout << "***********************************************************************
 	SurfDescriptorExtractor extractor;
 	FlannBasedMatcher matcher;
 	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
-	SURF_GPU surf;
+
 	//******************************************************************************
 	while (dirp_target = readdir(dp_target)) {
 		//dirp_target.clear();
@@ -88,6 +88,7 @@ cout << "***********************************************************************
 		    (strcmp(dirp_target->d_name, "..") == 0)) {
 			continue;
 		} else {
+			SURF_GPU surf;
 			cout << "[Improved version] Start processing Target "
 			<< cnt2 << " image ......" << endl;
 			GpuMat img_2;
