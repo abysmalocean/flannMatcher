@@ -72,11 +72,6 @@ cout << "***********************************************************************
 
 	// TODO
 	// -- Step 1: Detect the keypoints using SURF Detector
-	int minHessian = HESSIAN;
-	printf("Hessian distance is ----> [%d]\n", minHessian);
-	SurfFeatureDetector detector(minHessian);
-	SurfDescriptorExtractor extractor;
-	FlannBasedMatcher matcher;
 	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	//******************************************************************************
