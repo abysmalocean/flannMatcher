@@ -88,7 +88,7 @@ cout << "***********************************************************************
 			<< cnt2 << " image ......" << endl;
 			GpuMat img_2;
 			img_2.upload(imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE));
-			CV_Assert(!img_2.empty());
+			//CV_Assert(!img_2.empty());
 
 			GpuMat keypoints2GPU ;
 			GpuMat descriptors2GPU ;
