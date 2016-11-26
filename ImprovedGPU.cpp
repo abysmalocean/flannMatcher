@@ -73,10 +73,8 @@ cout << "***********************************************************************
 	long seconds, useconds;
 	gettimeofday(&start, NULL);
 
-	// TODO
-	// -- Step 1: Detect the keypoints using SURF Detector
-	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
-
+	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
+	cout << "[ " << cv::gpu::getCudaEnabledDeviceCount() << " ] Is Available \n";
 	//******************************************************************************
 	SURF_GPU surf;
 	surf.hessianThreshold = HESSIAN;
@@ -120,14 +118,15 @@ cout << "***********************************************************************
 
 	surf.hessianThreshold = HESSIAN;
 	surf.nOctaves = 5 ;
+
 	while (dirp_source = readdir(dp_source)) {
 		fp_source = dir_source + "/" + dirp_source->d_name;
 		if ((strcmp(dirp_source->d_name, ".") == 0) ||
 		    (strcmp(dirp_source->d_name, "..") == 0)) {
 			continue;
 		} else{
-			cout << "[Improved version] Start processing Target "
-			<< cnt2 << " image ......" << endl;
+			cout << "[Improved version] Start processing Source "
+			<< cnt1 << " image ......" << endl;
 			GpuMat img_1;
 			img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
 			GpuMat keypoints1GPU ;
