@@ -116,11 +116,10 @@ cout << "***********************************************************************
 	surf.nOctaves = 6 ;
 	while (dirp_source = readdir(dp_source)) {
 		fp_source = dir_source + "/" + dirp_source->d_name;
-
-		if ((strcmp(dirp_target->d_name, ".") == 0) ||
-		    (strcmp(dirp_target->d_name, "..") == 0)) {
+		if ((strcmp(dirp_source->d_name, ".") == 0) ||
+		    (strcmp(dirp_source->d_name, "..") == 0)) {
 			continue;
-		} else {
+		} else
 			//cout << "[Improved version] Start processing Target "
 			//<< cnt2 << " image ......" << endl;
 			GpuMat img_1;
