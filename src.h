@@ -38,6 +38,7 @@
 # include "original.h"
 # include "Improved.h"
 # include "MultipleThreadVersion.h"
+# include "ImprovedGPU.h"
 
 using namespace cv;
 using namespace std;
