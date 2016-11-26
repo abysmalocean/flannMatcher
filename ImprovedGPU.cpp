@@ -113,7 +113,7 @@ cout << "***********************************************************************
 	cout << "Finish Importing the Target Image \n";
 
 	surf.hessianThreshold = HESSIAN;
-	surf.nOctaves = 6 ;
+	surf.nOctaves = 5 ;
 	while (dirp_source = readdir(dp_source)) {
 		fp_source = dir_source + "/" + dirp_source->d_name;
 		if ((strcmp(dirp_source->d_name, ".") == 0) ||
