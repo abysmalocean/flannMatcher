@@ -72,10 +72,13 @@ cout << "***********************************************************************
 
 	// TODO
 	// -- Step 1: Detect the keypoints using SURF Detector
-	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
+	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	//******************************************************************************
-	while (dirp_target = readdir(dp_source)) {
+	SURF_GPU surf;
+	surf.hessianThreshold = HESSIAN;
+	surf.nOctaves = 2 ;
+	while (dirp_target = readdir(dp_target)) {
 		//dirp_target.clear();
 		fp_target = dir_target + "/" + dirp_target->d_name;
 
@@ -83,35 +86,28 @@ cout << "***********************************************************************
 		    (strcmp(dirp_target->d_name, "..") == 0)) {
 			continue;
 		} else {
-			SURF_GPU surf;
 			cout << "[Improved version] Start processing Target "
 			<< cnt2 << " image ......" << endl;
 			GpuMat img_2;
 			img_2.upload(imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE));
-			//CV_Assert(!img_2.empty());
-
 			GpuMat keypoints2GPU ;
 			GpuMat descriptors2GPU ;
 			surf(img_2, GpuMat(), keypoints2GPU, descriptors2GPU);
 
+			//init the keypoints and descriptors2
 			std::vector<KeyPoint> keypoints_2;
 			vector<float> descriptors2;
+
 			surf.downloadKeypoints(keypoints2GPU, keypoints_2);
 			surf.downloadDescriptors(descriptors2GPU, descriptors2);
 
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
-
 			targetMat[cnt2] = descriptors2;
 			tempFileData->vector_at = cnt2;
 			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
-			//cout << "File Path is " << fp_target << endl;
-			//cout << "Structure Path is " << tempFileData->Path << endl;
-
 			tempFileData->mappointer = &targetMat;
 			targetStruct.push_back(tempFileData);
 			cnt2++;
-			//printFileStruct(tempFileData);
-			//cout << " Size of Target vertor " << targetStruct.size() << endl;
 		}
 	}
 
