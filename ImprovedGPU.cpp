@@ -77,7 +77,7 @@ cout << "***********************************************************************
 	SurfFeatureDetector detector(minHessian);
 	SurfDescriptorExtractor extractor;
 	FlannBasedMatcher matcher;
-	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
+	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice(1));
 
 	//******************************************************************************
 	while (dirp_target = readdir(dp_target)) {
