@@ -40,10 +40,10 @@ cout << "***********************************************************************
 	vector<string> filename;
 
 	map<int,  vector<float> > targetMat;
-	map<int, Mat > SourceMat;
+	map<int,  vector<float> > SourceMat;
 
 	vector<FileDataGPU*> targetStruct;
-	vector<FileData*> sourceStruct;
+	vector<FileDataGPU*> sourceStruct;
 
 	min_distance = MAX_DISTANCE;
 
@@ -86,8 +86,8 @@ cout << "***********************************************************************
 		    (strcmp(dirp_target->d_name, "..") == 0)) {
 			continue;
 		} else {
-			cout << "[Improved version] Start processing Target "
-			<< cnt2 << " image ......" << endl;
+			//cout << "[GPU] Start processing Target "
+			//<< cnt2 << " image ......" << endl;
 			GpuMat img_2;
 			img_2.upload(imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE));
 			GpuMat keypoints2GPU ;
@@ -110,7 +110,41 @@ cout << "***********************************************************************
 			cnt2++;
 		}
 	}
+	cout << "Finish Importing the Target Image \n";
 
+	surf.hessianThreshold = HESSIAN;
+	surf.nOctaves = 6 ;
+	while (dirp_source = readdir(dp_source)) {
+		fp_source = dir_source + "/" + dirp_source->d_name;
+
+		if ((strcmp(dirp_target->d_name, ".") == 0) ||
+		    (strcmp(dirp_target->d_name, "..") == 0)) {
+			continue;
+		} else {
+			//cout << "[Improved version] Start processing Target "
+			//<< cnt2 << " image ......" << endl;
+			GpuMat img_1;
+			img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
+			GpuMat keypoints1GPU ;
+			GpuMat descriptors1GPU ;
+			surf(img_1, GpuMat(), keypoints1GPU, descriptors1GPU);
+
+			//init the keypoints and descriptors2
+			std::vector<KeyPoint> keypoints_1;
+			vector<float> descriptors1;
+
+			surf.downloadKeypoints(keypoints1GPU, keypoints_1);
+			surf.downloadDescriptors(descriptors1GPU, descriptors1);
+
+			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
+			SourceMat[cnt1] = descriptors1;
+			tempFileData->vector_at = cnt1;
+			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
+			tempFileData->mappointer = &SourceMat;
+			sourceStruct.push_back(tempFileData);
+			cnt1++;
+		}
+	}
 
 	//****************Record the
 	// time***********************************************
