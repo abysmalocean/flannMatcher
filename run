@@ -1,1 +1,10 @@
-./exe
+./exe > result/MultipleThread/MultipleThreadVersion.0
+./exe > result/MultipleThread/MultipleThreadVersion.1
+./exe > result/MultipleThread/MultipleThreadVersion.2
+./exe > result/MultipleThread/MultipleThreadVersion.3
+./exe > result/MultipleThread/MultipleThreadVersion.4
+./exe > result/MultipleThread/MultipleThreadVersion.5
+./exe > result/MultipleThread/MultipleThreadVersion.6
+./exe > result/MultipleThread/MultipleThreadVersion.7
+./exe > result/MultipleThread/MultipleThreadVersion.8
+./exe > result/MultipleThread/MultipleThreadVersion.9
