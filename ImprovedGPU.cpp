@@ -75,7 +75,7 @@ cout << "***********************************************************************
 	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	//******************************************************************************
-	while (dirp_target = readdir(dp_target)) {
+	while (dirp_target = readdir(dp_source)) {
 		//dirp_target.clear();
 		fp_target = dir_target + "/" + dirp_target->d_name;
 
