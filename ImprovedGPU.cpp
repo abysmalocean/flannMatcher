@@ -119,7 +119,7 @@ cout << "***********************************************************************
 		if ((strcmp(dirp_source->d_name, ".") == 0) ||
 		    (strcmp(dirp_source->d_name, "..") == 0)) {
 			continue;
-		} else
+		} else{
 			//cout << "[Improved version] Start processing Target "
 			//<< cnt2 << " image ......" << endl;
 			GpuMat img_1;
