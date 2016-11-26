@@ -126,8 +126,8 @@ cout << "***********************************************************************
 		    (strcmp(dirp_source->d_name, "..") == 0)) {
 			continue;
 		} else{
-			//cout << "[Improved version] Start processing Target "
-			//<< cnt2 << " image ......" << endl;
+			cout << "[Improved version] Start processing Target "
+			<< cnt2 << " image ......" << endl;
 			GpuMat img_1;
 			img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
 			GpuMat keypoints1GPU ;
