@@ -57,15 +57,20 @@ int main(int argc, char* argv[])
     GpuMat descriptors1GPU, descriptors2GPU;
     surf(img1, GpuMat(), keypoints1GPU, descriptors1GPU);
     surf(img2, GpuMat(), keypoints2GPU, descriptors2GPU);
+    cout << "Liang Xu" << endl;
 
     cout << "FOUND " << keypoints1GPU.cols << " keypoints on first image" << endl;
     cout << "FOUND " << keypoints2GPU.cols << " keypoints on second image" << endl;
 
     // matching descriptors
+    cout << "Liang Xu" << endl;
     BFMatcher_GPU matcher(NORM_L2);
+    cout << "Liang Xu" << endl;
     GpuMat trainIdx, distance;
+    cout << "Liang Xu" << endl;
     matcher.matchSingle(descriptors1GPU, descriptors2GPU, trainIdx, distance);
 
+    cout << "Liang Xu" << endl;
     // downloading results
     vector<KeyPoint> keypoints1, keypoints2;
     vector<float> descriptors1, descriptors2;
@@ -75,14 +80,15 @@ int main(int argc, char* argv[])
     surf.downloadDescriptors(descriptors1GPU, descriptors1);
     surf.downloadDescriptors(descriptors2GPU, descriptors2);
     BFMatcher_GPU::matchDownload(trainIdx, distance, matches);
+    cout << "Liang Xu" << endl;
 
     // drawing the results
-    Mat img_matches;
-    drawMatches(Mat(img1), keypoints1, Mat(img2), keypoints2, matches, img_matches);
+   // Mat img_matches;
+    //drawMatches(Mat(img1), keypoints1, Mat(img2), keypoints2, matches, img_matches);
 
-    namedWindow("matches", 0);
-    imshow("matches", img_matches);
-    waitKey(0);
+    //namedWindow("matches", 0);
+   // imshow("matches", img_matches);
+   // waitKey(0);
 
     return 0;
 }
