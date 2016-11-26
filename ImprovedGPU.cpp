@@ -39,10 +39,10 @@ cout << "***********************************************************************
 	map<string, string> answer;
 	vector<string> filename;
 
-	map<int, Mat> targetMat;
-	map<int, Mat> SourceMat;
+	map<int,  vector<float> > targetMat;
+	map<int, Mat > SourceMat;
 
-	vector<FileData*> targetStruct;
+	vector<FileDataGPU*> targetStruct;
 	vector<FileData*> sourceStruct;
 
 	min_distance = MAX_DISTANCE;
@@ -77,8 +77,8 @@ cout << "***********************************************************************
 	SurfFeatureDetector detector(minHessian);
 	SurfDescriptorExtractor extractor;
 	FlannBasedMatcher matcher;
-	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice(1));
-
+	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
+	SURF_GPU surf;
 	//******************************************************************************
 	while (dirp_target = readdir(dp_target)) {
 		//dirp_target.clear();
@@ -90,21 +90,22 @@ cout << "***********************************************************************
 		} else {
 			cout << "[Improved version] Start processing Target "
 			<< cnt2 << " image ......" << endl;
-			Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
-			// error handle
-			if (!img_2.data) {
-				printf(" --(!) Error reading images \n");
-				return -1;
-			}
+			GpuMat img_2;
+			img_2.upload(imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE));
+			CV_Assert(!img_2.empty());
+
+			GpuMat keypoints2GPU ;
+			GpuMat descriptors2GPU ;
+			surf(img_2, GpuMat(), keypoints2GPU, descriptors2GPU);
 
 			std::vector<KeyPoint> keypoints_2;
-			Mat descriptors_2;
-			detector.detect(img_2, keypoints_2);
-			extractor.compute(img_2, keypoints_2, descriptors_2);
-			// push to data structure
-			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
+			vector<float> descriptors2;
+			surf.downloadKeypoints(keypoints2GPU, keypoints_2);
+			surf.downloadDescriptors(descriptors2GPU, descriptors2);
 
-			targetMat[cnt2] = descriptors_2;
+			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
+
+			targetMat[cnt2] = descriptors2;
 			tempFileData->vector_at = cnt2;
 			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
 			//cout << "File Path is " << fp_target << endl;
@@ -117,100 +118,7 @@ cout << "***********************************************************************
 			//cout << " Size of Target vertor " << targetStruct.size() << endl;
 		}
 	}
-	while ((dirp_source = readdir(dp_source))) {
-		fp_source = dir_source + "/" + dirp_source->d_name;
-		if ((strcmp(dirp_source->d_name, ".") == 0) ||
-		    (strcmp(dirp_source->d_name, "..") == 0)) {
-			continue;
-		} else {
-			cout << "[Improved version] Start processing Source "
-			<< cnt1 << " image ......" << endl;
-			Mat img_1 = imread(fp_source.c_str(), CV_LOAD_IMAGE_GRAYSCALE);
-			if (!img_1.data) {
-				printf(" --(!) Error reading images \n");
-				return -1;
-			}
-			std::vector<KeyPoint> keypoints_1;
-			Mat descriptors_1;
-			detector.detect(img_1, keypoints_1);
-			extractor.compute(img_1, keypoints_1, descriptors_1);
-			// push to data structure
-			FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
-			SourceMat[cnt1] = descriptors_1;
-			tempFileData->vector_at = cnt1;
-			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
-			//cout << "File Path is " << fp_source << endl;
-			//cout << "Structure Path is " << tempFileData->Path << endl;
-			tempFileData->mappointer = &SourceMat;
-			sourceStruct.push_back(tempFileData);
-			cnt1++;
-		}
-	}
 
-	// Calcuate the Match
-	int targetSize = (int)targetMat.size();
-	int sourcesize = (int)SourceMat.size();
-	printf("sizeof the target files [%d]\n", targetSize);
-	printf("sizeof the source files [%d]\n", sourcesize);
-	double average[targetSize][sourcesize];
-
-	std::vector<DMatch> matches;
-	//std::map<int, Mat>::iterator it;
-  string src_name, tar_name;
-	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
-		min_distance = MAX_DISTANCE;
-		Mat descriptors_1;
-		FileData* SourceTemp = sourceStruct.at(sourceid);
-		//printFileStruct(SourceTemp);
-		cout << "sourced id is " << SourceTemp->vector_at << endl;
-		descriptors_1 =  (SourceTemp->mappointer)->find(SourceTemp->vector_at)->second;
-    src_name = SourceTemp -> Path;
-		//mymap.find('a')->second
-		//printFileStruct(targetTemp);
-		for (int targetid = 0; targetid < targetSize; targetid++)
-		{
-			Mat descriptors_2;
-			FileData* targetTemp = targetStruct.at(targetid);
-			//printFileStruct(targetTemp);
-			descriptors_2 =  (targetTemp->mappointer)->find(targetTemp->vector_at)->second;
-			matcher.match(descriptors_1, descriptors_2, matches);
-			// -- Quick calculation of max and min distances between keypoints
-			double max_dist = 0;
-			double min_dist = 100;
-			for (int i = 0; i < descriptors_1.rows; i++) {
-				double dist = matches[i].distance;
-				if (dist < min_dist) min_dist = dist;
-				if (dist > max_dist) max_dist = dist;
-			}
-			//Calculate Good match
-			std::vector<DMatch> good_matches;
-			for (int i = 0; i < descriptors_1.rows; i++) {
-				if (matches[i].distance <= max(2 * min_dist, 0.02)) {
-					good_matches.push_back(matches[i]);
-				}
-			}
-			double sum = 0;
-			double ave_sum = 0;
-			for (int i = 0; i < (int)good_matches.size(); i++) {
-				sum += good_matches[i].distance;
-			}
-			ave_sum = sum / good_matches.size();
-			if(isnan(ave_sum))
-			{
-				printf("Change Hessan Value\n" );
-				return 0;
-			}
-			average[sourceid][targetid] = min_distance;
-      //cout << "best match is " << targetTemp->Path << " and " << src_name << " Avg " << ave_sum << endl;
-      //cout << "ave_sum is " << ave_sum << endl;
-      //cout << "min_distance is" << min_distance << endl;
-			if (ave_sum < min_distance) {
-				min_distance = ave_sum;
-				tar_name = targetTemp->Path;
-			}
-		}// end for inner
-      answer.insert(pair<string, string>(tar_name, src_name));
-	}
 
 	//****************Record the
 	// time***********************************************
