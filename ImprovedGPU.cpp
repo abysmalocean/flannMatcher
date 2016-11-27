@@ -177,6 +177,7 @@ cout << "***********************************************************************
 		FileDataGPU* SourceTemp = sourceStruct.at(sourceid);
 		descriptors_1 =  (SourceTemp->mappointerMat)->find(SourceTemp->vector_at)->second;
 		img1.upload(descriptors_1);
+		src_name = SourceTemp -> Path;
 		for (int targetid = 0; targetid < targetSize; targetid++)
 		{
 			GpuMat img2;
@@ -212,12 +213,13 @@ cout << "***********************************************************************
 				printf("Change Hessan Value\n" );
 				return 0;
 			}
-			cout << "best match is " << targetTemp->Path << " and " << src_name << " Avg " << ave_sum << endl;
+			//cout << "best match is " << targetTemp->Path << " and " << src_name << " Avg " << ave_sum << endl;
 			if (ave_sum < min_distance) {
 				min_distance = ave_sum;
 				tar_name = targetTemp->Path;
 			}
 		}
+		cout << "Min distance is --->" << min_distance << endl;
 			answer.insert(pair<string, string>(tar_name, src_name));
 	}
 
