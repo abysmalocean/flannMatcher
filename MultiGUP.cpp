@@ -4,39 +4,32 @@
 
 void* ReadDataGPU(void * arg)
 {
-
-
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct->thread_ID;
-	cout << "Thread Id is " << i << endl;
 	cv::gpu::setDevice(i);
-	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
-
 	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
-	int minHessianInTread = HESSIAN;
-	SurfFeatureDetector detector(minHessianInTread);
-	SurfDescriptorExtractor extractor;
-	//cout<< "Thread Id is " << i << endl ;
-	//cout << "Total Number of Image is " << totalImageNumer << endl;
-	string fp_target;
 
+	SURF_GPU surf;
+	surf.hessianThreshold = HESSIAN;
+	surf.nOctaves = 2 ;
+
+	string fp_target;
 	//target
 	for( i; i < totalImageNumer; i = i + n_threads)
 	{
 		struct dirent *tempdrip = (inputStruct->dirp_map)->find(i)->second;
 		fp_target = dir_target + "/" + tempdrip->d_name;
-		Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
-		if (!img_2.data) {
-			printf(" --(!) Error reading images \n");
-			pthread_exit(NULL);
-			exit (1);
-		}
+		GpuMat img_2;
+		img_2.upload(imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE));
+		GpuMat keypoints2GPU ;
+		GpuMat descriptors2GPU ;
+		surf(img_2, GpuMat(), keypoints2GPU, descriptors2GPU);
+
 		std::vector<KeyPoint> keypoints_2;
-		Mat descriptors_2;
-		//inputStruct->detector->detect(img_2, keypoints_2);
-		//inputStruct->extractor->compute(img_2, keypoints_2, descriptors_2);
-		detector.detect(img_2, keypoints_2);
-		extractor.compute(img_2, keypoints_2, descriptors_2);
+		vector<float> descriptors2;
+		Mat descriptorsMat2;
+
+		descriptors2GPU.download(descriptorsMat2);
 
 		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 		tempFileData->vector_at = i;
@@ -44,37 +37,46 @@ void* ReadDataGPU(void * arg)
 		tempFileData->mappointer = inputStruct->MatMap;
 		// not sure to use the mutex
 		//pthread_mutex_lock(&mute_lock);
-		(*(inputStruct->MatMap))[i] = descriptors_2;
+		(*(inputStruct->MatMap))[i] = descriptorsMat2;
 		(*(inputStruct->FileDataVector)).push_back(tempFileData);
+
 		//pthread_mutex_unlock(&mute_lock);
 		cout << "THis is [ " << i << " ] Target Image,From Thread [ " << *inputStruct->thread_ID << " ]" << endl;
 		//cout << "File path is [ " << fp_target << " ]" << endl ;
 	}
 	//pthread_barrier_wait(&barrier);
+
 	//Source
+	surf.hessianThreshold = HESSIAN;
+	surf.nOctaves = 5 ;
 	i = *inputStruct->thread_ID;
 	for( i; i < totalImageNumer; i = i + n_threads)
 	{
 		struct dirent *tempdrip = (inputStruct->Source_dirp_map)->find(i)->second;
 		fp_target = dir_source + "/" + tempdrip->d_name;
-		Mat img_2 = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
-		if (!img_2.data) {
-			printf(" --(!) Error reading images \n");
-			pthread_exit(0);
-		}
-		std::vector<KeyPoint> keypoints_2;
-		Mat descriptors_2;
-		detector.detect(img_2, keypoints_2);
-		extractor.compute(img_2, keypoints_2, descriptors_2);
-		//inputStruct->detector->detect(img_2, keypoints_2);
-		//inputStruct->extractor->compute(img_2, keypoints_2, descriptors_2);
+		GpuMat img_1;
+		img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
+		GpuMat keypoints1GPU ;
+		GpuMat descriptors1GPU ;
+		surf(img_1, GpuMat(), keypoints1GPU, descriptors1GPU);
+
+		//init the keypoints and descriptors2
+		std::vector<KeyPoint> keypoints_1;
+		vector<float> descriptors1;
+		Mat descriptorsMat1;
+
+		//surf.downloadKeypoints(keypoints1GPU, keypoints_1);
+		descriptors1GPU.download(descriptorsMat1);
+		surf.downloadDescriptors(descriptors1GPU, descriptors1);
+
 		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
+
 		tempFileData->vector_at = i;
 		memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
 		tempFileData->mappointer = inputStruct->Source_MatMap;
 		// not sure to use the mutex
 		//pthread_mutex_lock(&mute_lock);
-		(*(inputStruct->Source_MatMap))[i] = descriptors_2;
+		(*(inputStruct->Source_MatMap))[i] = descriptorsMat1;
 		(*(inputStruct->Source_FileDataVector)).push_back(tempFileData);
 		//pthread_mutex_unlock(&mute_lock);
 		cout << "THis is [ " << i << " ] Source Image,From Thread [ " << *inputStruct->thread_ID << " ]" << endl;
@@ -135,11 +137,8 @@ void* ReadDataGPU(void * arg)
 		}//end loop inner
 		(*(inputStruct->answer)).insert(pair<string, string>(tar_name, src_name));
 	}//end loop outer
-
-
-
-
 }
+
 
 long MultiGUP() {
 	cout << "****************************************************************************"<<endl;
@@ -251,16 +250,16 @@ long MultiGUP() {
 		exit(0);
 	}
 /* Create 'numThreads' threads */
-	cv::gpu::setDevice(0);
-	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
+	//cv::gpu::setDevice(0);
+	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 	for(int i = 0; i < n_threads; i++)
 	{
 		ThreadStruct* ThreadStruct_pointer    = (ThreadStruct*)malloc(sizeof(ThreadStruct));
-		ThreadStruct_pointer->thread_ID      = &thread_ID[i];
+		ThreadStruct_pointer->thread_ID        = &thread_ID[i];
 		// target
 		ThreadStruct_pointer->dirp_map              = &dirp_map;
-		ThreadStruct_pointer->MatMap                            = &targetMat;
-		ThreadStruct_pointer->FileDataVector                    = &targetStruct;
+		ThreadStruct_pointer->MatMap                = &targetMat;
+		ThreadStruct_pointer->FileDataVector        = &targetStruct;
 		// Source
 		// target
 		ThreadStruct_pointer->Source_dirp_map       = &Source_dirp_map;
