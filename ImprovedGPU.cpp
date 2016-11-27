@@ -167,27 +167,16 @@ cout << "***********************************************************************
 	printf("sizeof the source files [%d]\n", sourcesize);
 
 	std::vector<DMatch> matches;
-	cout << "Liang Xu1" << endl;
 	string src_name, tar_name;
-	cout << "Liang Xu2" << endl;
 	BFMatcher_GPU matcher(NORM_L2);
-	cout << "Liang Xu3" << endl;
 
-	for (int sourceid = 1; sourceid < sourcesize; sourceid++) {
-		cout << "Liang Xu4" << endl;
+	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
 		min_distance = MAX_DISTANCE;
-		cout << "Liang Xu5" << endl;
 		GpuMat img1;
-		cout << "Liang Xu6" << endl;
 		Mat descriptors_1;
-		cout << "Liang Xu7" << endl;
 		FileDataGPU* SourceTemp = sourceStruct.at(sourceid);
-		cout << "Liang Xu8" << endl;
-		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		descriptors_1 =  (SourceTemp->mappointerMat)->find(SourceTemp->vector_at)->second;
-		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		img1.upload(descriptors_1);
-		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		for (int targetid = 0; targetid < targetSize; targetid++)
 		{
 			GpuMat img2;
@@ -205,8 +194,30 @@ cout << "***********************************************************************
 				if (dist < min_dist) min_dist = dist;
 				if (dist > max_dist) max_dist = dist;
 			}
-			cout << " min distance is " << min_dist << endl ;
+			//Calculate Good match
+			std::vector<DMatch> good_matches;
+			for (int i = 0; i < descriptors_1.rows; i++) {
+				if (matches[i].distance <= max(2 * min_dist, 0.02)) {
+					good_matches.push_back(matches[i]);
+				}
+			}
+			double sum = 0;
+			double ave_sum = 0;
+			for (int i = 0; i < (int)good_matches.size(); i++) {
+				sum += good_matches[i].distance;
+			}
+			ave_sum = sum / good_matches.size();
+			if(isnan(ave_sum))
+			{
+				printf("Change Hessan Value\n" );
+				return 0;
+			}
+			if (ave_sum < min_distance) {
+				min_distance = ave_sum;
+				tar_name = targetTemp->Path;
+			}
 		}
+			answer.insert(pair<string, string>(tar_name, src_name));
 	}
 
 	//****************Record the
