@@ -148,7 +148,7 @@ cout << "***********************************************************************
 			surf.downloadDescriptors(descriptors1GPU, descriptors1);
 
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
-			SourceMat[cnt2]    = descriptorsMat1;
+			SourceMat[cnt1]    = descriptorsMat1;
 			SourceMatGPU[cnt1] = descriptors1;
 
 			tempFileData->vector_at = cnt1;
