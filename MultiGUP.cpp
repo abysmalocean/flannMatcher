@@ -8,8 +8,9 @@ void* ReadDataGPU(void * arg)
 
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct->thread_ID;
+	cout << "Thread Id is " << i << endl;
 	cv::gpu::setDevice(i);
-	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
+	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 	int minHessianInTread = HESSIAN;
 	SurfFeatureDetector detector(minHessianInTread);
 	SurfDescriptorExtractor extractor;
@@ -266,7 +267,8 @@ long MultiGUP() {
 		//ThreadStruct_pointer-> extractor      = &extractor;
 
 		ThreadStruct_pointer->answer = &answer;
-		pthread_create(&threads[i],NULL,ReadDataGPU,(void *)ThreadStruct_pointer);
+		int err = pthread_create(&threads[i],NULL,ReadDataGPU,(void *)ThreadStruct_pointer);
+		if (err != 0) printf("cannot create thread");
 	}
 
 	for(int i = 0; i < n_threads; i++)
