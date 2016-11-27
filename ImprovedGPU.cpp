@@ -103,7 +103,7 @@ cout << "***********************************************************************
 			vector<float> descriptors2;
 			Mat descriptorsMat2;
 
-			surf.downloadKeypoints(keypoints2GPU, keypoints_2);
+			//surf.downloadKeypoints(keypoints2GPU, keypoints_2);
 			descriptors2GPU.download(descriptorsMat2);
 			surf.downloadDescriptors(descriptors2GPU, descriptors2);
 
@@ -140,7 +140,7 @@ cout << "***********************************************************************
 			std::vector<KeyPoint> keypoints_1;
 			vector<float> descriptors1;
 
-			surf.downloadKeypoints(keypoints1GPU, keypoints_1);
+			//surf.downloadKeypoints(keypoints1GPU, keypoints_1);
 			surf.downloadDescriptors(descriptors1GPU, descriptors1);
 
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
