@@ -1,10 +1,8 @@
-./exe > result/SingleGUP/SingleGUPVersion.0
-./exe > result/SingleGUP/SingleGUPVersion.1
-./exe > result/SingleGUP/SingleGUPVersion.2
-./exe > result/SingleGUP/SingleGUPVersion.3
-./exe > result/SingleGUP/SingleGUPVersion.4
-./exe > result/SingleGUP/SingleGUPVersion.5
-./exe > result/SingleGUP/SingleGUPVersion.6
-./exe > result/SingleGUP/SingleGUPVersion.7
-./exe > result/SingleGUP/SingleGUPVersion.8
-./exe > result/SingleGUP/SingleGUPVersion.9
+
+#!/bin/sh
+
+max=100
+for i in `seq 0 $max`
+do
+  ./exe > result/MultipleGUP/MultipleGUPVersion_7Thread.$i
+done
