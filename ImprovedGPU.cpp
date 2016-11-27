@@ -173,10 +173,15 @@ cout << "***********************************************************************
 	cout << "Liang Xu3" << endl;
 
 	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
+		cout << "Liang Xu4" << endl;
 		min_distance = MAX_DISTANCE;
+		cout << "Liang Xu5" << endl;
 		GpuMat img1;
+		cout << "Liang Xu6" << endl;
 		Mat descriptors_1;
+		cout << "Liang Xu7" << endl;
 		FileDataGPU* SourceTemp = sourceStruct.at(sourceid);
+		cout << "Liang Xu8" << endl;
 		descriptors_1 =  (SourceTemp->mappointerMat)->find(SourceTemp->vector_at)->second;
 		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		img1.upload(descriptors_1);
