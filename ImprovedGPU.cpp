@@ -68,10 +68,10 @@ cout << "***********************************************************************
 	int cnt1 = 0;
 	int cnt2 = 0;
 
-	cv::gpu::setDevice(3);
+	cv::gpu::setDevice(0);
 	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 	cout << "[ " << cv::gpu::getCudaEnabledDeviceCount() << " ] Is Available \n";
-	
+
 	//****************Record the
 	// time***********************************************
 	struct timeval start, end;
