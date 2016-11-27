@@ -81,28 +81,33 @@ void* ReadDataGPU(void * arg)
 
 	pthread_barrier_wait(&barrier);
 	// Get the Result
-/*
+
 	double min_distance = MAX_DISTANCE;
 	i = *inputStruct->thread_ID;
 	string src_name, tar_name;
 
 	BFMatcher_GPU matcher(NORM_L2);
 	std::vector<DMatch> matches;
-	FlannBasedMatcher matcher;
 	for( i; i < totalImageNumer; i = i + n_threads)
 	{
 		min_distance = MAX_DISTANCE;
+		GpuMat img1;
 		Mat descriptors_1;
 		FileData* SourceTemp = (*(inputStruct->Source_FileDataVector)).at(i);
 		//cout << "sourced id is " << SourceTemp->vector_at << " at Thread " << *inputStruct->thread_ID << endl;
 		descriptors_1 =  (SourceTemp->mappointer)->find(SourceTemp->vector_at)->second;
+		img1.upload(descriptors_1);
 		src_name = SourceTemp -> Path;
 		for (int targetid = 0; targetid < totalImageNumer; targetid++)
 		{
+			GpuMat img2;
 			Mat descriptors_2;
 			FileData* targetTemp = (*(inputStruct->FileDataVector)).at(targetid);
 			descriptors_2 =  (targetTemp->mappointer)->find(targetTemp->vector_at)->second;
-			matcher.match(descriptors_1, descriptors_2, matches);
+			img2.upload(descriptors_2);
+			GpuMat trainIdx, distance;
+			matcher.matchSingle(img1, img2, trainIdx, distance);
+			BFMatcher_GPU::matchDownload(trainIdx, distance, matches);
 			double max_dist = 0;
 			double min_dist = 100;
 			for (int i = 0; i < descriptors_1.rows; i++) {
@@ -137,7 +142,7 @@ void* ReadDataGPU(void * arg)
 		}//end loop inner
 		(*(inputStruct->answer)).insert(pair<string, string>(tar_name, src_name));
 	}//end loop outer
-*/
+
 }
 
 

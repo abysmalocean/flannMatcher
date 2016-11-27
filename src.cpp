@@ -48,8 +48,8 @@ int main(int argc, char **argv) {
         //Original_counter = original();
         //Improved_counter = Improved_than_Original();
         //MultiThraed_counter = MultiThreadVersion();
-        Improved_GPU  = Improved_GPUfucntion();
-        //MultiGUp_Counter = MultiGUP();
+        //Improved_GPU  = Improved_GPUfucntion();
+        MultiGUp_Counter = MultiGUP();
         double speedupImproved    = double(Original_counter)/double(Improved_counter);
         double speedupMultiThread = double(Original_counter)/double(MultiThraed_counter);
         double speedupImproved_GPU= double(Original_counter)/double(Improved_GPU);
