@@ -80,6 +80,7 @@ void* ReadDataGPU(void * arg)
 	}
 	cout << "Thread ["<< *inputStruct->thread_ID << " ] Finish uploading the pic \n";
 	//cout << "Total Image Number is " << totalImageNumer << endl;
+
 	pthread_barrier_wait(&barrier);
 	// Get the Result
 
@@ -113,7 +114,7 @@ void* ReadDataGPU(void * arg)
 
 			double max_dist = 0;
 			double min_dist = 100;
-			cout <<  "descriptors_1.rows " <<  descriptors_1.rows << endl;
+			cout <<  "descriptors_2.rows " <<  descriptors_2.rows << endl;
 			for (int i = 0; i < descriptors_1.rows; i++) {
 				double dist = matches[i].distance;
 				if (dist < min_dist) min_dist = dist;
