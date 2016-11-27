@@ -163,8 +163,8 @@ cout << "***********************************************************************
 	//TODO The following is to Use Match Function
 	int targetSize = (int)targetMat.size();
 	int sourcesize = (int)SourceMat.size();
-	printf("sizeof the target files [%d]\n", targetSize);
-	printf("sizeof the source files [%d]\n", sourcesize);
+	//printf("sizeof the target files [%d]\n", targetSize);
+	//printf("sizeof the source files [%d]\n", sourcesize);
 
 	std::vector<DMatch> matches;
 	string src_name, tar_name;
