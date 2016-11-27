@@ -212,6 +212,7 @@ cout << "***********************************************************************
 				printf("Change Hessan Value\n" );
 				return 0;
 			}
+			cout << "best match is " << targetTemp->Path << " and " << src_name << " Avg " << ave_sum << endl;
 			if (ave_sum < min_distance) {
 				min_distance = ave_sum;
 				tar_name = targetTemp->Path;
