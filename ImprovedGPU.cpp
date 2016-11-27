@@ -234,9 +234,9 @@ cout << "***********************************************************************
 	}
 	long total_micro_seconds = (seconds * 1000000) + abs(useconds);
 	printf(
-	        "This Program is the Improved version Improved the Reading and compare "
+	        "This Program is the GUP Version of this Program "
 	        "part\n");
-	printf("total micro seconds is ----->[%ld]\n", total_micro_seconds);
+	printf("total micro seconds is ----->[%ld]\n\n\n", total_micro_seconds);
 	//******************************************************************************
 
 	closedir(dp_source);
