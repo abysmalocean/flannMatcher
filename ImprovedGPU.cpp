@@ -219,7 +219,7 @@ cout << "***********************************************************************
 				tar_name = targetTemp->Path;
 			}
 		}
-		cout << "Min distance is --->" << min_distance << endl;
+		//cout << "Min distance is --->" << min_distance << endl;
 			answer.insert(pair<string, string>(tar_name, src_name));
 	}
 

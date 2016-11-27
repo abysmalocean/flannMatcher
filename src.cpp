@@ -51,9 +51,9 @@ int main(int argc, char **argv) {
         double speedupImproved    = double(Original_counter)/double(Improved_counter);
         double speedupMultiThread = double(Original_counter)/double(MultiThraed_counter);
         double speedupImproved_GPU= double(Original_counter)/double(Improved_GPU);
-        cout << "Speed up is with improved [" << speedupImproved <<"]" <<endl;
+        cout << "Speed up is with improvedCdoing [" << speedupImproved <<"]" <<endl;
         cout << "Speed up is with MultiThreadVersion [" << speedupMultiThread <<"]" <<endl;
-        cout << "Speed up is with Improved [" << speedupImproved_GPU <<"]" <<endl;
+        cout << "Speed up is with SingleGUPVersion [" << speedupImproved_GPU <<"]" <<endl;
 
 
 }
