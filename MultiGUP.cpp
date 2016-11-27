@@ -53,10 +53,17 @@ void* ReadDataGPU(void * arg)
 	for( i; i < totalImageNumer; i = i + n_threads)
 	{
 		struct dirent *tempdrip = (inputStruct->Source_dirp_map)->find(i)->second;
-		cout << "Source path is " << fp_target << endl;
 		fp_target = dir_source + "/" + tempdrip->d_name;
+		cout << "Source path is " << fp_target << endl;
 		GpuMat img_1;
-		img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
+
+		Mat temMat = imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE);
+		if (!temMat.data) {
+			printf(" --(!) Error reading images \n");
+			pthread_exit(0);
+		}
+		img_1.upload(temMat);
+
 		GpuMat keypoints1GPU ;
 		GpuMat descriptors1GPU ;
 		surf(img_1, GpuMat(), keypoints1GPU, descriptors1GPU);
