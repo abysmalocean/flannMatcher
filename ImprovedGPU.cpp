@@ -175,6 +175,7 @@ cout << "***********************************************************************
 		Mat descriptors_1;
 		FileDataGPU* SourceTemp = sourceStruct.at(sourceid);
 		descriptors_1 =  (SourceTemp->mappointerMat)->find(SourceTemp->vector_at)->second;
+		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		img1.upload(descriptors_1);
 		cout << "sourced id is " << SourceTemp->vector_at << endl;
 		for (int targetid = 0; targetid < targetSize; targetid++)
