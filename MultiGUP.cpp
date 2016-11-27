@@ -67,6 +67,7 @@ void* ReadDataGPU(void * arg)
 
 		//surf.downloadKeypoints(keypoints1GPU, keypoints_1);
 		descriptors1GPU.download(descriptorsMat1);
+		cout <<  "descriptorsMat1.rows " <<  descriptorsMat1.rows << endl;
 
 		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 		tempFileData->vector_at = i;
