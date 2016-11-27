@@ -6,7 +6,7 @@ void* ReadDataGPU(void * arg)
 {
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct->thread_ID;
-	cv::gpu::setDevice(i);
+	cv::gpu::setDevice(i+4);
 	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	SURF_GPU surf;
@@ -54,7 +54,7 @@ void* ReadDataGPU(void * arg)
 	{
 		struct dirent *tempdrip = (inputStruct->Source_dirp_map)->find(i)->second;
 		fp_target = dir_source + "/" + tempdrip->d_name;
-		cout << "Source path is " << fp_target << endl;
+		//cout << "Source path is " << fp_target << endl;
 		GpuMat img_1;
 
 		Mat temMat = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
@@ -121,8 +121,8 @@ void* ReadDataGPU(void * arg)
 
 			double max_dist = 0;
 			double min_dist = 100;
-			cout <<  "descriptors_2.rows " <<  descriptors_2.rows << endl;
-			cout <<  "descriptors_1.rows " <<  descriptors_1.rows << endl;
+			//cout <<  "descriptors_2.rows " <<  descriptors_2.rows << endl;
+			//cout <<  "descriptors_1.rows " <<  descriptors_1.rows << endl;
 			for (int i = 0; i < descriptors_1.rows; i++) {
 				double dist = matches[i].distance;
 				if (dist < min_dist) min_dist = dist;
