@@ -70,7 +70,7 @@ cout << "***********************************************************************
 
 	cv::gpu::setDevice(0);
 	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
-	cout << "[ " << cv::gpu::getCudaEnabledDeviceCount() << " ] Is Available \n";
+	cout << "[ " << cv::gpu::getCudaEnabledDeviceCount() << " ] GPU Is Available \n";
 
 	//****************Record the
 	// time***********************************************
@@ -141,12 +141,16 @@ cout << "***********************************************************************
 			//init the keypoints and descriptors2
 			std::vector<KeyPoint> keypoints_1;
 			vector<float> descriptors1;
+			Mat descriptorsMat1;
 
 			//surf.downloadKeypoints(keypoints1GPU, keypoints_1);
+			descriptors1GPU.download(descriptorsMat1);
 			surf.downloadDescriptors(descriptors1GPU, descriptors1);
 
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
+			SourceMat[cnt2]    = descriptorsMat1;
 			SourceMatGPU[cnt1] = descriptors1;
+
 			tempFileData->vector_at = cnt1;
 			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
 			tempFileData->mappointer = &SourceMatGPU;
