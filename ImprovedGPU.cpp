@@ -167,6 +167,8 @@ cout << "***********************************************************************
 
 	std::vector<DMatch> matches;
 	string src_name, tar_name;
+	BFMatcher_GPU matcher(NORM_L2);
+
 	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
 		min_distance = MAX_DISTANCE;
 		GpuMat img1;
@@ -176,6 +178,13 @@ cout << "***********************************************************************
 		img1.upload(descriptors_1);
 		for (int targetid = 0; targetid < targetSize; targetid++)
 		{
+			GpuMat img2;
+			Mat descriptors_2;
+			FileDataGPU* targetTemp = targetStruct.at(targetid);
+			descriptors_2 =  (targetTemp->mappointerMat)->find(targetTemp->vector_at)->second;
+			img2.upload(descriptors_2);
+			GpuMat trainIdx, distance;
+			matcher.matchSingle(img1, img2, trainIdx, distance);
 		}
 	}
 
