@@ -193,7 +193,7 @@ cout << "***********************************************************************
 				if (dist < min_dist) min_dist = dist;
 				if (dist > max_dist) max_dist = dist;
 			}
-
+			cout << " min distance is " << min_dist << endl ;
 		}
 	}
 
