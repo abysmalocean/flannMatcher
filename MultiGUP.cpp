@@ -19,7 +19,6 @@ void* ReadDataGPU(void * arg)
 	{
 		struct dirent *tempdrip = (inputStruct->dirp_map)->find(i)->second;
 		fp_target = dir_target + "/" + tempdrip->d_name;
-		cout << "Source path is " << fp_target << endl;
 		GpuMat img_2;
 		img_2.upload(imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE));
 		GpuMat keypoints2GPU ;
@@ -54,6 +53,7 @@ void* ReadDataGPU(void * arg)
 	for( i; i < totalImageNumer; i = i + n_threads)
 	{
 		struct dirent *tempdrip = (inputStruct->Source_dirp_map)->find(i)->second;
+		cout << "Source path is " << fp_target << endl;
 		fp_target = dir_source + "/" + tempdrip->d_name;
 		GpuMat img_1;
 		img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
