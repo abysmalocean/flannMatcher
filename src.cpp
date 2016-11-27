@@ -43,17 +43,21 @@ int main(int argc, char **argv) {
         long Original_counter    = 18191416089;
         long Improved_counter    = 1315246048;
         long MultiThraed_counter = 137352134;
-        long Improved_GPU        = 1;
+        long Improved_GPU        = 28178377;
+        long MultiGUp_Counter    = 1;
         //Original_counter = original();
         //Improved_counter = Improved_than_Original();
         //MultiThraed_counter = MultiThreadVersion();
-        Improved_GPU  = Improved_GPUfucntion();
+        //Improved_GPU  = Improved_GPUfucntion();
+        MultiGUp_Counter = MultiGUP();
         double speedupImproved    = double(Original_counter)/double(Improved_counter);
         double speedupMultiThread = double(Original_counter)/double(MultiThraed_counter);
         double speedupImproved_GPU= double(Original_counter)/double(Improved_GPU);
+        double speedupImproved_MultiGPU= double(Original_counter)/double(MultiGUp_Counter);
         cout << "Speed up is with improvedCdoing [" << speedupImproved <<"]" <<endl;
         cout << "Speed up is with MultiThreadVersion [" << speedupMultiThread <<"]" <<endl;
         cout << "Speed up is with SingleGUPVersion [" << speedupImproved_GPU <<"]" <<endl;
+        cout << "Speed up is with MultiGUP  [" << speedupImproved_MultiGPU <<"]" <<endl;
 
 
 }
