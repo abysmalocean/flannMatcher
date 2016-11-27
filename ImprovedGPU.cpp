@@ -7,7 +7,7 @@ using namespace cv::gpu;
 //****************R*************************************************************
 long Improved_GPUfucntion() {
 cout << "****************************************************************************"<<endl;
-	printf("This is the improved function\n");
+	printf("This Program is the GUP Version of this Program\n");
 	//**********************Init the Path*****************************************
 	char cwd[1024];
 	if (getcwd(cwd, sizeof(cwd)) != NULL)
