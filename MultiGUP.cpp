@@ -127,7 +127,7 @@ void* ReadDataGPU(void * arg)
 				if (dist > max_dist) max_dist = dist;
 			}
 
-			cout << "Min Distache is " << min_dist << endl ;
+			//cout << "Min Distache is " << min_dist << endl ;
 
 			std::vector<DMatch> good_matches;
 			for (int i = 0; i < descriptors_1.rows; i++) {
