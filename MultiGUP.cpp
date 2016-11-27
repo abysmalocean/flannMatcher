@@ -78,7 +78,8 @@ void* ReadDataGPU(void * arg)
 		(*(inputStruct->Source_FileDataVector)).push_back(tempFileData);
 		//pthread_mutex_unlock(&mute_lock);
 	}
-
+	cout << "Thread ["<< *inputStruct->thread_ID << " ] Finish uploading the pic \n";
+	cout << "Total Image Number is " << totalImageNumer << endl;
 	pthread_barrier_wait(&barrier);
 	// Get the Result
 
@@ -149,7 +150,7 @@ void* ReadDataGPU(void * arg)
 
 long MultiGUP() {
 	cout << "****************************************************************************"<<endl;
-	printf("This is the MultiThread Version of this Project \n");
+	printf("This is the MultiGUP Version of this Project \n");
 	//**********************Init the Path*****************************************
 	char cwd[1024];
 
