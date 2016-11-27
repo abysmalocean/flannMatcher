@@ -67,10 +67,8 @@ void* ReadDataGPU(void * arg)
 
 		//surf.downloadKeypoints(keypoints1GPU, keypoints_1);
 		descriptors1GPU.download(descriptorsMat1);
-		surf.downloadDescriptors(descriptors1GPU, descriptors1);
 
 		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
-
 		tempFileData->vector_at = i;
 		memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
 		tempFileData->mappointer = inputStruct->Source_MatMap;
