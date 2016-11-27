@@ -4,6 +4,7 @@
 #include "opencv2/nonfree/gpu.hpp"
 struct FileDataGPU {
 	map<int, vector<float> >* mappointer;
+	map<int, Mat >* mappointerMat;
 	int vector_at;
 	char Path[256];
 	FileDataGPU() {

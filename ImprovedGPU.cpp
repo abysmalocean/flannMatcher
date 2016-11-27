@@ -110,9 +110,11 @@ cout << "***********************************************************************
 			FileDataGPU* tempFileData = (FileDataGPU*)malloc(sizeof(FileDataGPU));
 			targetMat[cnt2]    = descriptorsMat2;
 			targetMatGPU[cnt2] = descriptors2;
+
 			tempFileData->vector_at = cnt2;
 			memcpy ( tempFileData->Path, dirp_target->d_name, strlen(dirp_target->d_name)+1 );
 			tempFileData->mappointer = &targetMatGPU;
+			tempFileData->mappointerMat = &targetMat;
 			targetStruct.push_back(tempFileData);
 			cnt2++;
 		}
@@ -128,8 +130,8 @@ cout << "***********************************************************************
 		    (strcmp(dirp_source->d_name, "..") == 0)) {
 			continue;
 		} else{
-			cout << "[Improved version] Start processing Source "
-			<< cnt1 << " image ......" << endl;
+			//cout << "[Improved version] Start processing Source "
+			//<< cnt1 << " image ......" << endl;
 			GpuMat img_1;
 			img_1.upload(imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE));
 			GpuMat keypoints1GPU ;
@@ -154,7 +156,24 @@ cout << "***********************************************************************
 	}
 	cout << "Finish Importing the Source Image \n";
 	//TODO The following is to Use Match Function
+	int targetSize = (int)targetMat.size();
+	int sourcesize = (int)SourceMat.size();
+	printf("sizeof the target files [%d]\n", targetSize);
+	printf("sizeof the source files [%d]\n", sourcesize);
 
+	std::vector<DMatch> matches;
+	string src_name, tar_name;
+	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
+		min_distance = MAX_DISTANCE;
+		GpuMat img1;
+		Mat descriptors_1;
+		FileDataGPU* SourceTemp = sourceStruct.at(sourceid);
+		descriptors_1 =  (SourceTemp->mappointerMat)->find(SourceTemp->vector_at)->second;
+		img1.upload(descriptors_1);
+		for (int targetid = 0; targetid < targetSize; targetid++)
+		{
+		}
+	}
 
 	//****************Record the
 	// time***********************************************
