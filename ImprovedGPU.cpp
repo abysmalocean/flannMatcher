@@ -166,8 +166,11 @@ cout << "***********************************************************************
 	printf("sizeof the source files [%d]\n", sourcesize);
 
 	std::vector<DMatch> matches;
+	cout << "Liang Xu1" << endl;
 	string src_name, tar_name;
+	cout << "Liang Xu2" << endl;
 	BFMatcher_GPU matcher(NORM_L2);
+	cout << "Liang Xu3" << endl;
 
 	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
 		min_distance = MAX_DISTANCE;
