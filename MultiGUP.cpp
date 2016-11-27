@@ -57,7 +57,7 @@ void* ReadDataGPU(void * arg)
 		cout << "Source path is " << fp_target << endl;
 		GpuMat img_1;
 
-		Mat temMat = imread(fp_source, CV_LOAD_IMAGE_GRAYSCALE);
+		Mat temMat = imread(fp_target, CV_LOAD_IMAGE_GRAYSCALE);
 		if (!temMat.data) {
 			printf(" --(!) Error reading images \n");
 			pthread_exit(0);
