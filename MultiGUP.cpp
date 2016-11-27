@@ -6,7 +6,7 @@ void* ReadDataGPU(void * arg)
 {
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct->thread_ID;
-	cv::gpu::setDevice(i+4);
+	cv::gpu::setDevice(i);
 	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	SURF_GPU surf;
@@ -317,8 +317,7 @@ long MultiGUP() {
 	}
 	long total_micro_seconds = (seconds * 1000000) + abs(useconds);
 	printf(
-	        "This Program is the Improved version Improved the Reading and compare "
-	        "part\n");
+	        "This Program is the MultiGUP Version  \n");
 	printf("total micro seconds is ----->[%ld]\n", total_micro_seconds);
 	//******************************************************************************
 

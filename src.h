@@ -23,7 +23,7 @@
 #define WORKSET 1
 //o -->small 1- big
 #define THREADS 20
-#define THREADSGPU 4
+#define THREADSGPU 8
 //#define SOURCE source
 //#define TARGET targets
 #ifndef HAVE_OPENCV_NONFREE
