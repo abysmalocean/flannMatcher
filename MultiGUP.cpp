@@ -9,6 +9,8 @@ void* ReadDataGPU(void * arg)
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct->thread_ID;
 	cout << "Thread Id is " << i << endl;
+	cv::gpu::setDevice(i);
+	cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 	int minHessianInTread = HESSIAN;
