@@ -75,8 +75,6 @@ void* ReadDataGPU(void * arg)
 
 		//surf.downloadKeypoints(keypoints1GPU, keypoints_1);
 		descriptors1GPU.download(descriptorsMat1);
-		cout <<  "descriptorsMat1.rows " <<  descriptorsMat1.rows << endl;
-
 		FileData* tempFileData = (FileData*)malloc(sizeof(FileData));
 		tempFileData->vector_at = i;
 		memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
@@ -129,7 +127,7 @@ void* ReadDataGPU(void * arg)
 				if (dist > max_dist) max_dist = dist;
 			}
 
-			//cout << "Min Distache is " << min_dist << endl ;
+			cout << "Min Distache is " << min_dist << endl ;
 
 			std::vector<DMatch> good_matches;
 			for (int i = 0; i < descriptors_1.rows; i++) {
