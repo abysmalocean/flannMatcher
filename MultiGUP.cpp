@@ -79,7 +79,7 @@ void* ReadDataGPU(void * arg)
 		//pthread_mutex_unlock(&mute_lock);
 	}
 	cout << "Thread ["<< *inputStruct->thread_ID << " ] Finish uploading the pic \n";
-	cout << "Total Image Number is " << totalImageNumer << endl;
+	//cout << "Total Image Number is " << totalImageNumer << endl;
 	pthread_barrier_wait(&barrier);
 	// Get the Result
 
@@ -107,8 +107,10 @@ void* ReadDataGPU(void * arg)
 			descriptors_2 =  (targetTemp->mappointer)->find(targetTemp->vector_at)->second;
 			img2.upload(descriptors_2);
 			GpuMat trainIdx, distance;
+
 			matcher.matchSingle(img1, img2, trainIdx, distance);
 			BFMatcher_GPU::matchDownload(trainIdx, distance, matches);
+
 			double max_dist = 0;
 			double min_dist = 100;
 			for (int i = 0; i < descriptors_1.rows; i++) {
@@ -116,13 +118,16 @@ void* ReadDataGPU(void * arg)
 				if (dist < min_dist) min_dist = dist;
 				if (dist > max_dist) max_dist = dist;
 			}
+			
 			cout << "Min Distache is " << min_dist << endl ;
+
 			std::vector<DMatch> good_matches;
 			for (int i = 0; i < descriptors_1.rows; i++) {
 				if (matches[i].distance <= max(2 * min_dist, 0.02)) {
 					good_matches.push_back(matches[i]);
 				}
 			}
+
 			double sum = 0;
 			double ave_sum = 0;
 			for (int i = 0; i < (int)good_matches.size(); i++) {
@@ -132,7 +137,7 @@ void* ReadDataGPU(void * arg)
 			if(isnan(ave_sum))
 			{
 				printf("Change Hessan Value\n" );
-				return 0;
+				//return 0;
 			}
 			//cout << "best match is " << targetTemp->Path << " and " << src_name << " Avg " << ave_sum << endl;
 			//cout << "ave_sum is " << ave_sum << endl;
