@@ -169,6 +169,7 @@ long MultiGUP() {
 	//struct dirent *dirp_source, *dirp_target;
 	struct dirent *dirp_source, *dirp_target;
 	//***************iR*************************************************************
+	n_threads = THREADSGPU;
 	int thread_ID[n_threads];
 	for (int i = 0; i < n_threads; i++) {
 		thread_ID[i]=i;
