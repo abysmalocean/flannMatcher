@@ -41,7 +41,7 @@ void* ReadDataGPU(void * arg)
 		(*(inputStruct->FileDataVector)).push_back(tempFileData);
 
 		//pthread_mutex_unlock(&mute_lock);
-		cout << "THis is [ " << i << " ] Target Image,From Thread [ " << *inputStruct->thread_ID << " ]" << endl;
+		//cout << "THis is [ " << i << " ] Target Image,From Thread [ " << *inputStruct->thread_ID << " ]" << endl;
 		//cout << "File path is [ " << fp_target << " ]" << endl ;
 	}
 	//pthread_barrier_wait(&barrier);
@@ -74,27 +74,27 @@ void* ReadDataGPU(void * arg)
 		tempFileData->vector_at = i;
 		memcpy ( tempFileData->Path, tempdrip->d_name, strlen(tempdrip->d_name)+1 );
 		tempFileData->mappointer = inputStruct->Source_MatMap;
-		// not sure to use the mutex
-		//pthread_mutex_lock(&mute_lock);
 		(*(inputStruct->Source_MatMap))[i] = descriptorsMat1;
 		(*(inputStruct->Source_FileDataVector)).push_back(tempFileData);
 		//pthread_mutex_unlock(&mute_lock);
-		cout << "THis is [ " << i << " ] Source Image,From Thread [ " << *inputStruct->thread_ID << " ]" << endl;
 	}
 
 	pthread_barrier_wait(&barrier);
 	// Get the Result
-	std::vector<DMatch> matches;
-	i = *inputStruct->thread_ID;
-	FlannBasedMatcher matcher;
+/*
 	double min_distance = MAX_DISTANCE;
+	i = *inputStruct->thread_ID;
 	string src_name, tar_name;
+
+	BFMatcher_GPU matcher(NORM_L2);
+	std::vector<DMatch> matches;
+	FlannBasedMatcher matcher;
 	for( i; i < totalImageNumer; i = i + n_threads)
 	{
 		min_distance = MAX_DISTANCE;
 		Mat descriptors_1;
 		FileData* SourceTemp = (*(inputStruct->Source_FileDataVector)).at(i);
-		cout << "sourced id is " << SourceTemp->vector_at << " at Thread " << *inputStruct->thread_ID << endl;
+		//cout << "sourced id is " << SourceTemp->vector_at << " at Thread " << *inputStruct->thread_ID << endl;
 		descriptors_1 =  (SourceTemp->mappointer)->find(SourceTemp->vector_at)->second;
 		src_name = SourceTemp -> Path;
 		for (int targetid = 0; targetid < totalImageNumer; targetid++)
@@ -137,6 +137,7 @@ void* ReadDataGPU(void * arg)
 		}//end loop inner
 		(*(inputStruct->answer)).insert(pair<string, string>(tar_name, src_name));
 	}//end loop outer
+*/
 }
 
 
