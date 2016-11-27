@@ -185,6 +185,15 @@ cout << "***********************************************************************
 			img2.upload(descriptors_2);
 			GpuMat trainIdx, distance;
 			matcher.matchSingle(img1, img2, trainIdx, distance);
+			BFMatcher_GPU::matchDownload(trainIdx, distance, matches);
+			double max_dist = 0;
+			double min_dist = 100;
+			for (int i = 0; i < descriptors_1.rows; i++) {
+				double dist = matches[i].distance;
+				if (dist < min_dist) min_dist = dist;
+				if (dist > max_dist) max_dist = dist;
+			}
+
 		}
 	}
 
