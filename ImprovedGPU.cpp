@@ -172,7 +172,7 @@ cout << "***********************************************************************
 	BFMatcher_GPU matcher(NORM_L2);
 	cout << "Liang Xu3" << endl;
 
-	for (int sourceid = 0; sourceid < sourcesize; sourceid++) {
+	for (int sourceid = 1; sourceid < sourcesize; sourceid++) {
 		cout << "Liang Xu4" << endl;
 		min_distance = MAX_DISTANCE;
 		cout << "Liang Xu5" << endl;
