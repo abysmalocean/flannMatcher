@@ -154,6 +154,7 @@ cout << "***********************************************************************
 			tempFileData->vector_at = cnt1;
 			memcpy ( tempFileData->Path, dirp_source->d_name, strlen(dirp_source->d_name)+1 );
 			tempFileData->mappointer = &SourceMatGPU;
+			tempFileData->mappointerMat = &SourceMat;
 			sourceStruct.push_back(tempFileData);
 			cnt1++;
 		}
