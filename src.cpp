@@ -44,7 +44,7 @@ int main(int argc, char **argv) {
         long Improved_counter    = 1315246048;
         long MultiThraed_counter = 137352134;
         long Improved_GPU        = 28178377;
-        long MultiGUp_Counter    = 1;
+        long MultiGUp_Counter    = 16492464;
         //Original_counter = original();
         //Improved_counter = Improved_than_Original();
         //MultiThraed_counter = MultiThreadVersion();
