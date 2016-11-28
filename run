@@ -2,7 +2,7 @@
 #!/bin/sh
 
 max=10
-mkdir MultipleGUP5
+mkdir result/MultipleGUP5
 for i in `seq 0 $max`
 do
   ./exe > result/MultipleGUP5/MultipleGUPVersion_5Thread.$i
