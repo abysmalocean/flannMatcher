@@ -6,7 +6,7 @@ void* ReadDataGPU(void * arg)
 {
 	ThreadStruct* inputStruct = (ThreadStruct *) arg;
 	int i = *inputStruct->thread_ID;
-	cv::gpu::setDevice(i+1);
+	cv::gpu::setDevice(i);
 	//cv::gpu::printShortCudaDeviceInfo(cv::gpu::getDevice());
 
 	SURF_GPU surf;
