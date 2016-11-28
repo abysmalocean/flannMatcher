@@ -1,0 +1,26 @@
+********[ Working on the **Big** Data Set ]**********************************
+
+****************************************************************************
+This is the MultiGUP Version of this Project 
+Current working dir: /home/xul4/flannMatcher
+ Source Data Path is /home/xul4/flannMatcher/source
+ Target Data Path is /home/xul4/flannMatcher/targets
+
+Hessian distance is ----> [400]
+Number of Thread is ----> [7]
+Thread [0 ] Finish uploading the pic 
+Thread [3 ] Finish uploading the pic 
+Thread [4 ] Finish uploading the pic 
+Thread [1 ] Finish uploading the pic 
+Thread [6 ] Finish uploading the pic 
+Thread [5 ] Finish uploading the pic 
+Thread [2 ] Finish uploading the pic 
+sizeof the target files [75]
+sizeof the source files [75]
+This Program is the MultiGUP Version  
+total micro seconds is ----->[15187896]
+{"env":"dev","answers":{"aax.png":392179.jpg,"aim.png":751767.jpg,"aix.png":242241.jpg,"apf.png":214648.jpg,"bdu.png":939640.jpg,"bil.png":758980.jpg,"ccl.png":726529.jpg,"cub.png":795790.jpg,"czz.png":192747.jpg,"dge.png":248122.jpg,"eea.png":852714.jpg,"eiy.png":321394.jpg,"hdn.png":603700.jpg,"hen.png":930154.jpg,"hes.png":927821.jpg,"huz.png":514831.jpg,"hyt.png":950585.jpg,"ifu.png":795558.jpg,"irr.png":413985.jpg,"izz.png":373781.jpg,"jdu.png":501123.jpg,"jlz.png":398783.jpg,"jqb.png":389223.jpg,"jzj.png":217233.jpg,"kci.png":559756.jpg,"kfv.png":628865.jpg,"krw.png":902656.jpg,"kuh.png":711990.jpg,"lcl.png":167081.jpg,"llp.png":109488.jpg,"mks.png":150544.jpg,"mug.png":453656.jpg,"mxy.png":798777.jpg,"mzz.png":798138.jpg,"ngm.png":919817.jpg,"nwx.png":397101.jpg,"oju.png":802659.jpg,"pbu.png":486042.jpg,"pkz.png":180329.jpg,"pmu.png":627155.jpg,"pub.png":511740.jpg,"qby.png":685660.jpg,"qcl.png":498917.jpg,"qjn.png":427926.jpg,"qwv.png":456648.jpg,"qxs.png":295492.jpg,"rxq.png":113780.jpg,"scd.png":663139.jpg,"stt.png":104753.jpg,"szi.png":389009.jpg,"tma.png":927654.jpg,"tog.png":730296.jpg,"ugx.png":807291.jpg,"uij.png":868392.jpg,"ujm.png":508218.jpg,"umo.png":712390.jpg,"uvr.png":285104.jpg,"vpf.png":329862.jpg,"vza.png":878142.jpg,"waf.png":913780.jpg,"wmb.png":395057.jpg,"wnr.png":763257.jpg,"wps.png":141086.jpg,"wtc.png":894408.jpg,"xez.png":754820.jpg,"xmd.png":733617.jpg,"xmn.png":553960.jpg,"xni.png":871768.jpg,"ybg.png":194327.jpg,"yhp.png":333684.jpg,"zcp.png":677403.jpg,"zdh.png":203976.jpg,"zdz.png":692812.jpg,"zvr.png":977308.jpg,"zvs.png":495200.jpg}}
+Speed up is with improvedCdoing [13.8312]
+Speed up is with MultiThreadVersion [132.444]
+Speed up is with SingleGUPVersion [645.581]
+Speed up is with MultiGUP  [1197.76]
