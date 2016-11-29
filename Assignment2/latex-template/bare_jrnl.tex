@@ -445,27 +445,25 @@ Email: xul4@vcu.edu}}
 \begin{abstract}
 	During the Ramhack this year (2016), elephant insurence proposed one of the channenges called sub-images. The goal of the challenge is to match a sub image
 	to a big image in a image pool. The sub image is a small part of the big image.
-	Example of the source image is:
+	Example of the source image is Figure [\ref{fig:researchscope}]
 		\begin{figure}[h]
 		  \centering
 		  \includegraphics[scale=0.1]{Figure/1001.jpg}
 		  \caption{Source Image}
+		  \label{fig:researchscope}
 		\end{figure} 
 	
-	Example of the target image is:
+	Example of the target image is Figure [\ref{fig:figure2}]:
 		\begin{figure}[h]
 		  \centering
 		  \includegraphics[scale=0.28]{Figure/tbgj.png}
 		  \caption{Target Image}
+		  \label{fig:figure2}
 		\end{figure} 
 	
 	During the challenge we use the eeathre matching algorithm with FLANN(Fast Approximate Nearest Neighbor Search Library) in OpenCV. OpenCV (Open Source Computer Vision Library: http://opencv.org) is an open-source BSD-licensed library that includes several hundreds of computer vision algorithms. The final challenge is to match 75 pictures. Our algorithm took around 2 hours to finish the challenge which takes too much time by using the serial computation (CPU). 
 	
-		\begin{figure}[h]
-		  \centering
-		  \includegraphics[scale=0.28]{Figure/FLANN.jpg}
-		  \caption{Example}
-		\end{figure} 
+
 	
 	So for this final project, I am thinking to continue work on the challenge using more advanced computation method, for example using GPU to parallel the computation. 
 	
@@ -482,6 +480,61 @@ GPU, OPENCV, Picture matching
 
 \IEEEPARstart{T}{his} project is going to speed up the original program. 
 The original program run about 5 hours under 400 min Hessian distance. The average running time is 18191416089 micro seconds. Let treat this as benchmark. I will propose 4 different method to speed up the program. 1. Better Programming. 2, Use Multi Thread. 3, Single GUP. 4, Multi-GUP. In the following sections, I will discuss about each of them. The original target and source each have all the 75 pictures. 
+\section{Running Algorithm}
+This program is using the OpenCV library. 
+\subsection*{Keypoints}
+Using the SurfFeatureDetector to extract all the keypoints. Figure [\ref{fig:figure3}], Figure [\ref{fig:figure4}]
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/SourceKeyPoints.png}
+			\caption{Source Keypoints}
+			\label{fig:figure3}
+		\end{figure} 
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.30]{Figure/target.png}
+			\caption{Target Keypoints}
+			\label{fig:figure4}
+		\end{figure} 
+\subsection*{Hessian Value}
+Different Hessian value will generate different number of keypoints. Following is the three source image with different Hessian value.Figure [\ref{fig:figure5}], Figure [\ref{fig:figure6}],Figure [\ref{fig:figure7}]
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/4000.png}
+			\caption{Hessian = 4000}
+			\label{fig:figure5}
+		\end{figure} 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/400.png}
+			\caption{Hessian = 400}
+			\label{fig:figure6}
+		\end{figure} 
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/20.png}
+			\caption{Hessian = 20}
+			\label{fig:figure7}
+		\end{figure} 
+		
+Different Hessian value means different complexity. This project is using 400 for Hessian value. 
+\subsection{descriptors and Matching method}
+Figure [\ref{fig:figure8}],Figure [\ref{fig:figure9}]
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/FLANN.jpg}
+			\caption{Match Keypoints}
+			\label{fig:figure8}
+			\end{figure} 
+			
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/distance.png}
+			\caption{ Keypoint Distance }
+			\label{fig:figure9}
+		\end{figure} 
+
 \section{Original Program}
 The original program has 3 expensive function from opencv.
 
@@ -585,20 +638,29 @@ for (Source Image In Memory)
 end
 
 }//end thread
+this is the flow chart Figure [\ref{fig:figure13}]
+
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.15]{Figure/MultiThread.png}
+			\caption{ Multi Thread }
+			\label{fig:figure13}
+		\end{figure} 
+
 
 For each thread is rung the multi thread version of the original program.
 Speedup is 132.444
 this version takes about 137352134 micro sceconds, it is around 2.29 minutes. 
 
 \section{GPU Version}
+
 The multi Thread version of the program is based on the improved version. 
- 
 
 for(Source Image)
 
---- imgSource = imread(); ---------GUP Version
+--- imgSource = imread(); ---------GPU Version
 
-----detector.detect(imgSource); ---Gpu Version
+----detector.detect(imgSource); ---GPU Version
 
 ----extractor.compute(imgSource);-- GPU Version
 
@@ -621,23 +683,30 @@ for (Source Image In Memory)
 --------matcher.match( ); ---------GUP Version
 
 end
+this is the flow chart Figure [\ref{fig:figure14}]
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.25]{Figure/GPUI.png}
+			\caption{ GPU Version }
+			\label{fig:figure14}
+		\end{figure} 
 
 
 Speedup is 645.581
 this version takes about 28178377 micro sceconds, it is around 28 seconds. 
 
-\section{Multi GPU Version}
-The multi Thread version of the program is based on the improved version. 
+
+
  
-thread {
+thread(i) {
 
 Call Different GUP for this entire thread
 
 for(Source Image)
 
---- imgSource = imread(); ---------GUP Version
+--- imgSource = imread(); ---------GPU Version
 
-----detector.detect(imgSource); ---Gpu Version
+----detector.detect(imgSource); ---GPU Version
 
 ----extractor.compute(imgSource);-- GPU Version
 
@@ -662,10 +731,31 @@ for (Source Image In Memory)
 end
 
 } // end thread
-
+this is the flow chart Figure [\ref{fig:figure15}]
+\section{Multi GPU Version}
+The multi Thread version of the program is based on the improved version. 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.15]{Figure/MultiGPU.png}
+	\caption{ Multi GPU }
+	\label{fig:figure15}
+\end{figure} 
 
 Speedup is 1103.013
 this version takes about 16492464 micro sceconds, it is around 16 seconds. 
+
+\section{Result}
+This part is the result of this project Figure [\ref{fig:figure10}]
+		\begin{figure}[h]
+			\centering
+			\includegraphics[scale=0.25]{Figure/Result.png}
+			\caption{ Keypoint Distance }
+			\label{fig:figure10}
+		\end{figure} 
+		
+\section{Conclusion}
+Two points I need to mention in the conclusion. 
+One is try to balance the work load between the threads. Another is the memory and cache hierarchy. 
 
 \end{document}
 

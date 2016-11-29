@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.10.15)  27 NOV 2016 23:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.10.10)  29 NOV 2016 16:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **bare_jrnl.tex
 (./bare_jrnl.tex
-LaTeX2e <2011/06/27>
-Babel <3.9h> and hyphenation patterns for 78 languages loaded.
+LaTeX2e <2016/02/01>
+Babel <3.9q> and hyphenation patterns for 81 language(s) loaded.
 (./IEEEtran.cls
 Document Class: IEEEtran 2015/08/26 V1.8b by Michael Shell
 -- See the "IEEEtran_HOWTO" manual for usage information.
@@ -114,22 +114,22 @@ LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
 \c@IEEEbiography=\count93
 \@IEEEtranrubishbin=\box27
 ) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks15
 )
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+Package: graphics 2016/01/03 v1.0q Standard LaTeX Graphics (DPC,SPQR)
 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
-Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
 )
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/graphics.cfg
 File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 95.
 
 (/usr/share/texlive/texmf-dist/tex/latex/pdftex-def/pdftex.def
 File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
@@ -229,39 +229,131 @@ File: Figure/1001.jpg Graphic file (type jpg)
 Package pdftex.def Info: Figure/1001.jpg used on input line 451.
 (pdftex.def)             Requested size: 166.63226pt x 112.22581pt.
 
-<Figure/tbgj.png, id=2, 160.6pt x 82.3075pt>
+<Figure/tbgj.png, id=2, 110.4125pt x 82.3075pt>
 File: Figure/tbgj.png Graphic file (type png)
  <use Figure/tbgj.png>
-Package pdftex.def Info: Figure/tbgj.png used on input line 458.
-(pdftex.def)             Requested size: 44.96768pt x 23.04593pt.
+Package pdftex.def Info: Figure/tbgj.png used on input line 459.
+(pdftex.def)             Requested size: 30.91528pt x 23.04593pt.
 
-<Figure/FLANN.jpg, id=4, 841.1425pt x 413.545pt>
+<Figure/SourceKeyPoints.png, id=4, 1666.225pt x 1150.2975pt>
+File: Figure/SourceKeyPoints.png Graphic file (type png)
+
+<use Figure/SourceKeyPoints.png>
+Package pdftex.def Info: Figure/SourceKeyPoints.png used on input line 489.
+(pdftex.def)             Requested size: 249.92296pt x 172.53717pt.
+
+<Figure/target.png, id=5, 110.4125pt x 110.4125pt>
+File: Figure/target.png Graphic file (type png)
+ <use Figure/target.png>
+Package pdftex.def Info: Figure/target.png used on input line 496.
+(pdftex.def)             Requested size: 33.124pt x 33.124pt.
+
+<Figure/4000.png, id=6, 1666.225pt x 1150.2975pt>
+File: Figure/4000.png Graphic file (type png)
+ <use Figure/4000.png>
+Package pdftex.def Info: Figure/4000.png used on input line 504.
+(pdftex.def)             Requested size: 249.92296pt x 172.53717pt.
+
+<Figure/400.png, id=7, 1666.225pt x 1150.2975pt>
+File: Figure/400.png Graphic file (type png)
+ <use Figure/400.png>
+Package pdftex.def Info: Figure/400.png used on input line 510.
+(pdftex.def)             Requested size: 249.92296pt x 172.53717pt.
+
+<Figure/20.png, id=8, 1666.225pt x 1150.2975pt>
+File: Figure/20.png Graphic file (type png)
+ <use Figure/20.png>
+Package pdftex.def Info: Figure/20.png used on input line 516.
+(pdftex.def)             Requested size: 249.92296pt x 172.53717pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Figure/FLANN.jpg, id=9, 1776.6375pt x 1150.2975pt>
 File: Figure/FLANN.jpg Graphic file (type jpg)
  <use Figure/FLANN.jpg>
-Package pdftex.def Info: Figure/FLANN.jpg used on input line 466.
-(pdftex.def)             Requested size: 235.5183pt x 115.7918pt.
+Package pdftex.def Info: Figure/FLANN.jpg used on input line 526.
+(pdftex.def)             Requested size: 266.48413pt x 172.53717pt.
+
+Overfull \hbox (14.48413pt too wide) in paragraph at lines 526--527
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Figure/distance.png, id=10, 695.59875pt x 308.15125pt>
+File: Figure/distance.png Graphic file (type png)
+
+<use Figure/distance.png>
+Package pdftex.def Info: Figure/distance.png used on input line 533.
+(pdftex.def)             Requested size: 104.33531pt x 46.22069pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
 
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
- <./Figure/1001.jpg> <./Figure/tbgj.png> <./Figure/FLANN.jpg>] [2] (./bare_jrnl
-.aux) ) 
+ <./Figure/1001.jpg> <./Figure/tbgj.png> <./Figure/SourceKeyPoints.png> <./Figu
+re/target.png>] [2 <./Figure/4000.png> <./Figure/400.png> <./Figure/20.png> <./
+Figure/FLANN.jpg>]
+<Figure/MultiThread.png, id=30, 1550.79375pt x 766.865pt>
+File: Figure/MultiThread.png Graphic file (type png)
+
+<use Figure/MultiThread.png>
+Package pdftex.def Info: Figure/MultiThread.png used on input line 645.
+(pdftex.def)             Requested size: 232.60902pt x 115.02478pt.
+
+<Figure/GPUI.png, id=31, 806.01125pt x 231.86626pt>
+File: Figure/GPUI.png Graphic file (type png)
+ <use Figure/GPUI.png>
+Package pdftex.def Info: Figure/GPUI.png used on input line 689.
+(pdftex.def)             Requested size: 201.50232pt x 57.96642pt.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<Figure/MultiGPU.png, id=32, 1545.775pt x 808.01875pt>
+File: Figure/MultiGPU.png Graphic file (type png)
+
+<use Figure/MultiGPU.png>
+Package pdftex.def Info: Figure/MultiGPU.png used on input line 739.
+(pdftex.def)             Requested size: 231.85625pt x 121.19757pt.
+ <Figure/Result.png, id=33, 933.4875pt x 334.24875pt>
+File: Figure/Result.png Graphic file (type png)
+
+<use Figure/Result.png>
+Package pdftex.def Info: Figure/Result.png used on input line 751.
+(pdftex.def)             Requested size: 233.3713pt x 83.56198pt.
+ [3 <./Figure/distance.png> <./Figure/MultiThread.png> <./Figure/GPUI.png> <./F
+igure/MultiGPU.png> <./Figure/Result.png>] [4
+
+]
+(./bare_jrnl.aux) ) 
 Here is how much of TeX's memory you used:
- 2312 strings out of 493304
- 37966 string characters out of 6139870
- 101398 words of memory out of 5000000
- 5771 multiletter control sequences out of 15000+600000
- 35094 words of font info for 65 fonts, out of 8000000 for 9000
- 960 hyphenation exceptions out of 8191
+ 2377 strings out of 493029
+ 39167 string characters out of 6136233
+ 103579 words of memory out of 5000000
+ 5902 multiletter control sequences out of 15000+600000
+ 36230 words of font info for 66 fonts, out of 8000000 for 9000
+ 1144 hyphenation exceptions out of 8191
  37i,7n,23p,481b,272s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/t
-exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1
-/urw/times/utmr8a.pfb>
-Output written on bare_jrnl.pdf (2 pages, 499995 bytes).
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}<
+/usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/ur
+w/times/utmri8a.pfb>
+Output written on bare_jrnl.pdf (4 pages, 12666733 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 55 PDF objects out of 1000 (max. 8388607)
+ 24 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 
